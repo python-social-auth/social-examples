@@ -1,0 +1,2 @@
+django
+python-social-auth-app-django
