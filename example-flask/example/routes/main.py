@@ -12,10 +12,11 @@ def main():
 @login_required
 @app.route('/done/')
 def done():
-    return render_template('done.html')
+    return render_template('home.html')
 
 
-@app.route('/logout')
+@login_required
+@app.route('/logout/')
 def logout():
     """Logout view"""
     logout_user()

@@ -1,4 +1,3 @@
-{% load backend_utils %}
 <!doctype html>
 <html>
   <head>
@@ -30,12 +29,16 @@
       {% endif %}
 
       <div class="social">
-        {% for sublist in available_backends|social_backends %}
+        {% for sublist in available_backends|social_backends|slice_by(10) %}
           <div class="row">
             {% for name, backend in sublist %}
-              {% associated backend %}
+              {% set association = backends.associated.get(bakend.name) %}
               {% if association %}
-                <form class="disconnect-form col-md-2" id="{{ name }}-disconnect" action="{% url "social:disconnect_individual" backend=association.provider association_id=association.id %}" method="post">{% csrf_token %}
+                <form id="{{ name }}-disconnect"
+                      class="disconnect-form col-md-2"
+                      action="{{ url_for("social:disconnect_individual", backend=association.provider, association_id=association.id) }}"
+                      method="post">
+                  <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                   <a class="btn btn-danger" name="{{ backend|backend_class }}" href="#">
                     <i class="fa fa-{{ name|icon_name }}"></i>
                     Disconnect {{ backend|backend_name }}
@@ -48,7 +51,10 @@
                     {{ backend|backend_name }}
                   </div>
                 {% else %}
-                  <a class="col-md-2 btn btn-default" id="{{ name }}-button" name="{{ backend|backend_class }}" href="{% url "social:begin" backend=name %}">
+                  <a id="{{ name }}-button"
+                     class="col-md-2 btn btn-default"
+                     name="{{ backend|backend_class }}"
+                     href="{{ url_for("social:begin", backend=name) }}">
                     <i class="fa fa-{{ name|icon_name }}"></i>
                     {{ backend|backend_name }}
                   </a>
@@ -61,16 +67,19 @@
 
       <div class="legacy">
         {% for name, backend in available_backends|legacy_backends %}
-          {% associated backend %}
+          {% set association = associated.get(bakend.name) %}
           {% if association %}
-            <form class="disconnect-form" action="{% url "social:disconnect_individual" backend=association.provider association_id=association.id %}" method="post">{% csrf_token %}
+            <form class="disconnect-form"
+                  action="{{ url_for("social:disconnect_individual", backend=association.provider, association_id=association.id) }}"
+                  method="post">
+              <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
               <a class="btn btn-danger" name="{{ backend|backend_class }}" href="#">
                 <i class="fa fa-{{ name|icon_name }}"></i>
                 Disconnect {{ backend|backend_name }}
               </a>
             </form>
           {% else %}
-            <a class="btn btn-default" name="{{ backend|backend_class }}" href="{% url "social:begin" backend=name %}">
+            <a class="btn btn-default" name="{{ backend|backend_class }}" href="{{ url_for("social:begin", backend=name) }}">
               <i class="fa fa-{{ name|icon_name }}"></i>
               {{ backend|backend_name }}
             </a>
@@ -92,7 +101,8 @@
     </div>
 
     <div id="username-modal" class="modal fade">
-      <form action="{% url "social:complete" "username" %}" method="post" role="form">{% csrf_token %}
+      <form action="{{ url_for("social:complete", "username") }}" method="post" role="form">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -127,7 +137,8 @@
     </div>
 
     <div id="email-modal" class="modal fade">
-      <form action="{% url "social:complete" "email" %}" method="post" role="form">{% csrf_token %}
+      <form action="{{ url_for("social:complete", "email") }}" method="post" role="form">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -162,7 +173,8 @@
     </div>
 
     <div id="livejournal-modal" class="modal fade">
-      <form action="{% url "social:begin" "livejournal" %}" method="post" role="form">{% csrf_token %}
+      <form action="{{ url_for("social.begin", backend="livejournal") }}" method="post" role="form">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -187,7 +199,8 @@
     </div>
 
     <div id="openid-modal" class="modal fade">
-      <form action="{% url "social:begin" backend="openid" %}" method="post" role="form">{% csrf_token %}
+      <form action="{{ url_for("social:begin", backend="openid") }}" method="post" role="form">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -220,7 +233,8 @@
           </div>
 
           <div class="modal-body">
-            <form action="#" method="post" class="form-horizontal" role="form">{% csrf_token %}
+            <form action="#" method="post" class="form-horizontal" role="form">
+              <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
               <div class="form-group">
                 <label class="control-label" for="backend">Backend:</label>
                 <select class="form-control" name="backend">
@@ -258,7 +272,8 @@
     </div>
 
     <div id="persona-modal" class="modal fade">
-      <form action="{% url "social:complete" backend="persona" %}" method="post">{% csrf_token %}
+      <form action="{{ url_for("social:complete", backend="persona") }}" method="post">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -282,7 +297,8 @@
 
     {% if backend %}
       <div id="email-required-modal" class="modal fade">
-        <form action="{% url "social:complete" backend=backend %}" method="post" role="form">{% csrf_token %}
+        <form action="{{ url_for("social:complete", backend=backend) }}" method="post" role="form">
+          <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -350,13 +366,13 @@
                 var $input;
 
                 $form = $("<form>");
-                $form.attr("action", "{% url "social:complete" backend="google-plus" %}");
+                $form.attr("action", "{{ url_for("social:complete", backend="google-plus") }}");
                 $form.attr("method", "post");
                 $input = $("<input>");
                 $input.attr("name", "access_token");
                 $input.attr("value", authResponse.access_token);
                 $form.append($input);
-                $form.append("{% csrf_token %}");
+                $form.append("{{ csrf_token }}");
                 $(document.body).append($form);
                 $form.submit();
               });

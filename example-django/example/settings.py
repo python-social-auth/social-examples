@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_jinja',
     'social_django',
     'app'
 ]
@@ -54,6 +55,34 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'example.urls'
 
 TEMPLATES = [
+    {
+        'BACKEND': 'django_jinja.backend.Jinja2',
+        'APP_DIRS': True,
+        'DIRS': [
+            os.path.join(BASE_DIR, 'common', 'templates')
+        ],
+        'OPTIONS': {
+            'match_extension': '.html',
+            'match_regex': r'^(?!admin/).*',
+            'filters': {
+                'backend_name': 'common.filters.backend_name',
+                'backend_class': 'common.filters.backend_class',
+                'icon_name': 'common.filters.icon_name',
+                'social_backends': 'common.filters.social_backends',
+                'legacy_backends': 'common.filters.legacy_backends',
+                'oauth_backends': 'common.filters.oauth_backends',
+                'filter_backends': 'common.filters.filter_backends',
+                'slice_by': 'common.filters.slice_by'
+            },
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+            ],
+        }
+    },
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
@@ -182,7 +211,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.auth_allowed',
     'social_core.pipeline.social_auth.social_user',
     'social_core.pipeline.user.get_username',
-    'example.app.pipeline.require_email',
+    'app.pipeline.require_email',
     'social_core.pipeline.mail.mail_validation',
     'social_core.pipeline.user.create_user',
     'social_core.pipeline.social_auth.associate_user',

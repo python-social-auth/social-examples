@@ -20,44 +20,37 @@ def logout(request):
     return redirect('/')
 
 
-def context(**extra):
-    """Common view context"""
-    return dict({
-        'plus_id': getattr(settings, 'SOCIAL_AUTH_GOOGLE_PLUS_KEY', None),
-        'plus_scope': ' '.join(GooglePlusAuth.DEFAULT_SCOPE),
-        'available_backends': load_backends(settings.AUTHENTICATION_BACKENDS)
-    }, **extra)
-
-
 @render_to('home.html')
 def home(request):
     """Home view, displays login mechanism"""
     if request.user.is_authenticated():
         return redirect('done')
-    return context()
 
 
 @login_required
 @render_to('home.html')
 def done(request):
     """Login complete view, displays user data"""
-    return context()
+    pass
 
 
 @render_to('home.html')
 def validation_sent(request):
     """Email validation sent confirmation page"""
-    return context(
-        validation_sent=True,
-        email=request.session.get('email_validation_address')
-    )
+    return {
+        'validation_sent': True,
+        'email': request.session.get('email_validation_address')
+    }
 
 
 @render_to('home.html')
 def require_email(request):
     """Email required page"""
     backend = request.session['partial_pipeline']['backend']
-    return context(email_required=True, backend=backend)
+    return {
+        'email_required': True,
+        'backend': backend
+    }
 
 
 @psa('social:complete')
