@@ -9,6 +9,10 @@ def is_authenticated(user):
         return user.is_authenticated
 
 
+def associations(user):
+    return list(user.social_auth)
+
+
 def common_context(authentication_backends, user=None, plus_id=None, **extra):
     """Common view context"""
     context = {
@@ -19,7 +23,7 @@ def common_context(authentication_backends, user=None, plus_id=None, **extra):
 
     if user and is_authenticated(user):
         context['associated'] = dict((association.provider, association)
-                                     for association in user.social_auth.all())
+                                     for association in associations(user))
 
     if plus_id:
         context['plus_id'] = plus_id

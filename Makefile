@@ -9,6 +9,10 @@ run-flask:
 	@ python example-flask/manage.py syncdb
 	@ python example-flask/manage.py runserver -p $(DEFAULT_PORT)
 
+run-flask-peewee:
+	@ python example-flask-peewee/manage.py syncdb
+	@ python example-flask-peewee/manage.py runserver -p $(DEFAULT_PORT)
+
 run-webpy:
 	@ python example-webpy/manage.py syncdb
 	@ python example-webpy/manage.py $(DEFAULT_IFACE):$(DEFAULT_PORT)
