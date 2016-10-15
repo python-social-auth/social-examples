@@ -1,3 +1,4 @@
+DEFAULT_IFACE := 0.0.0.0
 DEFAULT_PORT := 8001
 
 run-django:
@@ -7,6 +8,10 @@ run-django:
 run-flask:
 	@ python example-flask/manage.py syncdb
 	@ python example-flask/manage.py runserver -p $(DEFAULT_PORT)
+
+run-webpy:
+	@ python example-webpy/manage.py syncdb
+	@ python example-webpy/manage.py $(DEFAULT_IFACE):$(DEFAULT_PORT)
 
 clean:
 	@ find . -name '*.py[co]' -delete
