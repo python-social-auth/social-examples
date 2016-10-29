@@ -101,7 +101,6 @@ render._lookup.globals.update({
 
 class AppBaseView(social_app.BaseViewClass):
     def render_home(self):
-        print "USER:", self.get_current_user()
         context = common_context(
             web.config[setting_name('AUTHENTICATION_BACKENDS')],
             user=self.get_current_user(),
