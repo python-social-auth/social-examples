@@ -24,6 +24,10 @@ run-webpy:
 	@ python example-webpy/manage.py syncdb
 	@ python example-webpy/manage.py $(DEFAULT_IFACE):$(DEFAULT_PORT)
 
+run-cherrypy:
+	@ python example-cherrypy/manage.py syncdb
+	@ python example-cherrypy/manage.py $(DEFAULT_IFACE):$(DEFAULT_PORT)
+
 clean:
 	@ find . -name '*.py[co]' -delete
 	@ find . -name '__pycache__' -delete
