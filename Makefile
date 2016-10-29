@@ -5,6 +5,10 @@ run-django:
 	@ python example-django/manage.py migrate
 	@ python example-django/manage.py runserver $(DEFAULT_PORT)
 
+run-django-mongoengine:
+	@ python example-django-mongoengine/manage.py migrate
+	@ python example-django-mongoengine/manage.py runserver $(DEFAULT_PORT)
+
 run-flask:
 	@ python example-flask/manage.py syncdb
 	@ python example-flask/manage.py runserver -p $(DEFAULT_PORT)

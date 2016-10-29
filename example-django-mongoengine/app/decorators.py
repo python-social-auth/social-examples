@@ -1,0 +1,26 @@
+from functools import wraps
+
+from django.conf import settings
+from django.shortcuts import render
+
+from common.utils import common_context
+
+
+def render_to(template):
+    """Simple render_to decorator"""
+    def decorator(func):
+        """Decorator"""
+        @wraps(func)
+        def wrapper(request, *args, **kwargs):
+            """Rendering method"""
+            out = func(request, *args, **kwargs) or {}
+            if isinstance(out, dict):
+                out = render(request, template, common_context(
+                    settings.AUTHENTICATION_BACKENDS,
+                    request.user,
+                    plus_id=getattr(settings, 'SOCIAL_AUTH_GOOGLE_PLUS_KEY', None),
+                    **out
+                ))
+            return out
+        return wrapper
+    return decorator

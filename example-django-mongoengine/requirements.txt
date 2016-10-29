@@ -1,0 +1,3 @@
+django
+django-jinja
+python-social-auth-app-django
