@@ -1,4 +1,4 @@
-python-social-auth-app-pyramid
+social-auth-app-pyramid
 transaction
 waitress
 pyramid

@@ -30,3 +30,17 @@ def common_context(authentication_backends, user=None, plus_id=None, **extra):
         context['plus_scope'] = ' '.join(GooglePlusAuth.DEFAULT_SCOPE)
 
     return dict(context, **extra)
+
+
+def url_for(name, **kwargs):
+    if name == 'social:begin':
+        url = '/login/{backend}/'
+    elif name == 'social:complete':
+        url = '/complete/{backend}/'
+    elif name == 'social:disconnect':
+        url = '/disconnect/{backend}/'
+    elif name == 'social:disconnect_individual':
+        url = '/disconnect/{backend}/{association_id}/'
+    else:
+        url = name
+    return url.format(**kwargs)

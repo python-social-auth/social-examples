@@ -12,7 +12,7 @@ import tornado.options
 import tornado.web
 
 from common import filters
-from common.utils import common_context
+from common.utils import common_context, url_for
 
 from social_tornado.routes import SOCIAL_AUTH_ROUTES
 
@@ -61,21 +61,6 @@ class DoneHandler(BaseHandler):
 class LogoutHandler(tornado.web.RequestHandler):
     def get(self):
         self.request.redirect('/')
-
-
-def url_for(name, **kwargs):
-    if name == 'social:begin':
-        url = '/login/{backend}/'
-    elif name == 'social:complete':
-        url = '/complete/{backend}/'
-    elif name == 'social:disconnect':
-        if 'association_id' in kwargs:
-            url = '/disconnect/{backend}/{association_id}/'
-        else:
-            url = '/disconnect/{backend}/'
-    else:
-        url = name
-    return url.format(**kwargs)
 
 
 jinja2env = Environment(

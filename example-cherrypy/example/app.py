@@ -10,7 +10,7 @@ from social_cherrypy.utils import backends
 from social_cherrypy.views import CherryPyPSAViews
 
 from common import filters
-from common.utils import common_context
+from common.utils import common_context, url_for
 
 import settings
 
@@ -79,20 +79,6 @@ except ImportError:
     raise RuntimeError('Define a local_settings.py using ' \
                        'local_settings.py.template as base')
 
-
-def url_for(name, **kwargs):
-    if name == 'social:begin':
-        url = '/login/{backend}/'
-    elif name == 'social:complete':
-        url = '/complete/{backend}/'
-    elif name == 'social:disconnect':
-        if 'association_id' in kwargs:
-            url = '/disconnect/{backend}/{association_id}/'
-        else:
-            url = '/disconnect/{backend}/'
-    else:
-        url = name
-    return url.format(**kwargs)
 
 def run_app(port=8001):
     cherrypy.config.update({

@@ -3,5 +3,5 @@ Flask-Login
 Flask-Script
 Werkzeug
 Jinja2
-python-social-auth-app-flask
-python-social-auth-app-flask-sqlalchemy
+social-auth-app-flask
+social-auth-app-flask-sqlalchemy

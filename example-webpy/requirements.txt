@@ -1,3 +1,3 @@
 Jinja2
 web.py
-python-social-auth-app-webpy
+social-auth-app-webpy

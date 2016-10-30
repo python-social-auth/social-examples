@@ -7,26 +7,12 @@ from pyramid.session import UnencryptedCookieSessionFactoryConfig
 
 from social_pyramid.models import init_social
 
-from common import filters
+from common import filters, utils
 
 from .models import DBSession, Base
 
 import settings as app_settings
 import local_settings as app_local_settings
-
-
-def url_for(name, **kwargs):
-    if name == 'social:begin':
-        url = '/login/{backend}/'
-    elif name == 'social:complete':
-        url = '/complete/{backend}/'
-    elif name == 'social:disconnect':
-        url = '/disconnect/{backend}/'
-    elif name == 'social:disconnect_individual':
-        url = '/disconnect/{backend}/{association_id}/'
-    else:
-        url = name
-    return url.format(**kwargs)
 
 
 def get_settings(module):
@@ -42,7 +28,7 @@ def main(global_config, **settings):
     Base.metadata.bind = engine
     session_factory = UnencryptedCookieSessionFactoryConfig('thisisasecret')
     settings['jinja2.globals'] = {
-        'url': url_for
+        'url': utils.url_for
     }
     settings['jinja2.filters'] = {
         'backend_name': filters.backend_name,

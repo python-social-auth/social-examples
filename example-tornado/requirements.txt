@@ -1,2 +1,2 @@
 tornado-jinja2
-python-social-auth-app-tornado
+social-auth-app-tornado

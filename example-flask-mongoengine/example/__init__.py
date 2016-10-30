@@ -5,7 +5,7 @@ from flask_login import LoginManager, current_user
 from flask_mongoengine import MongoEngine
 
 from common import filters
-from common.utils import common_context
+from common.utils import common_context, url_for as common_url_for
 
 from social_flask.routes import social_auth
 from social_flask.template_filters import backends
@@ -70,18 +70,6 @@ def load_common_context():
         app.config.get('SOCIAL_AUTH_GOOGLE_PLUS_KEY')
     )
 
-@app.context_processor
-def url_func():
-    def url(endpoint, **kwargs):
-        urls_mapping = {
-            'social:begin': 'social.auth',
-            'social:complete': 'social.complete',
-            'social:disconnect_individual': 'social.disconnect'
-        }
-        endpoint = urls_mapping.get(endpoint, endpoint)
-        return url_for(endpoint.replace(':', '.'), **kwargs)
-    return { 'url': url }
-
 app.context_processor(backends)
 app.jinja_env.filters['backend_name'] = filters.backend_name
 app.jinja_env.filters['backend_class'] = filters.backend_class
@@ -91,3 +79,4 @@ app.jinja_env.filters['legacy_backends'] = filters.legacy_backends
 app.jinja_env.filters['oauth_backends'] = filters.oauth_backends
 app.jinja_env.filters['filter_backends'] = filters.filter_backends
 app.jinja_env.filters['slice_by'] = filters.slice_by
+app.jinja_env.globals['url'] = common_url_for
