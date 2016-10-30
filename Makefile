@@ -32,6 +32,12 @@ run-tornado:
 	@ python example-tornado/manage.py syncdb
 	@ python example-tornado/manage.py $(DEFAULT_IFACE):$(DEFAULT_PORT)
 
+run-pyramid:
+	@ cd example-pyramid && \
+		python setup.py develop && \
+		initialize_example_db development.ini && \
+		pserve development.ini
+
 clean:
 	@ find . -name '*.py[co]' -delete
 	@ find . -name '__pycache__' -delete

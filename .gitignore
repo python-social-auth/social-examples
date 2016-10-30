@@ -5,3 +5,4 @@ db.sqlite3
 local_settings.py
 .python-version
 example-webpy/sessions
+example-pyramid/example.egg-info

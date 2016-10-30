@@ -1,0 +1,8 @@
+python-social-auth-app-pyramid
+transaction
+waitress
+pyramid
+pyramid_jinja2
+pyramid_tm
+pyramid_debugtoolbar
+pyramid_chameleon
