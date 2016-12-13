@@ -10,7 +10,7 @@ def is_authenticated(user):
 
 
 def associations(user):
-    return list(user.social_auth)
+    return list(user.social_auth.all())
 
 
 def common_context(authentication_backends, user=None, plus_id=None, **extra):
