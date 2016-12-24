@@ -9,14 +9,14 @@ def main():
     return render_template('home.html')
 
 
-@login_required
 @app.route('/done/')
+@login_required
 def done():
     return render_template('home.html')
 
 
-@login_required
 @app.route('/logout/')
+@login_required
 def logout():
     """Logout view"""
     logout_user()
