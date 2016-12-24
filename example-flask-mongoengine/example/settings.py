@@ -99,4 +99,5 @@ SOCIAL_AUTH_AUTHENTICATION_BACKENDS = (
     'social_core.backends.email.EmailAuth',
     'social_core.backends.username.UsernameAuth',
     'social_core.backends.upwork.UpworkOAuth',
+    'social_core.backends.slack.SlackOAuth2'
 )
