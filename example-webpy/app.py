@@ -51,7 +51,7 @@ web.config[setting_name('AUTHENTICATION_BACKENDS')] = (
     'social_core.backends.google.GoogleOAuth2',
     'social_core.backends.google.GoogleOpenId',
     'social_core.backends.google.GooglePlusAuth',
-    'social_core.backends.google.GoogleOpenIdConnect',
+    'social_core.backends.google_openidconnect.GoogleOpenIdConnect',
     'social_core.backends.instagram.InstagramOAuth2',
     'social_core.backends.jawbone.JawboneOAuth2',
     'social_core.backends.kakao.KakaoOAuth2',
