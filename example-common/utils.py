@@ -1,5 +1,6 @@
 from social_core.backends.google import GooglePlusAuth
 from social_core.backends.utils import load_backends
+from social_core.utils import get_current_strategy
 
 
 def is_authenticated(user):
@@ -10,7 +11,8 @@ def is_authenticated(user):
 
 
 def associations(user):
-    return list(user.social_auth.all())
+    strategy = get_current_strategy()
+    return list(strategy.storage.user.get_social_auth_for_user(user).all())
 
 
 def common_context(authentication_backends, user=None, plus_id=None, **extra):
