@@ -14,6 +14,7 @@ import tornado.web
 from common import filters
 from common.utils import common_context, url_for
 
+from social_tornado.utils import load_strategy
 from social_tornado.routes import SOCIAL_AUTH_ROUTES
 
 import settings
@@ -42,6 +43,7 @@ class BaseHandler(tornado.web.RequestHandler):
 
         context = common_context(
             settings.SOCIAL_AUTH_AUTHENTICATION_BACKENDS,
+            load_strategy(self),
             user=user,
             plus_id=getattr(settings, 'SOCIAL_AUTH_GOOGLE_PLUS_KEY', None)
         )

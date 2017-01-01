@@ -1,6 +1,5 @@
 from social_core.backends.google import GooglePlusAuth
 from social_core.backends.utils import load_backends
-from social_core.utils import get_current_strategy
 
 
 def is_authenticated(user):
@@ -10,12 +9,11 @@ def is_authenticated(user):
         return user.is_authenticated
 
 
-def associations(user):
-    strategy = get_current_strategy()
+def associations(user, strategy):
     return list(strategy.storage.user.get_social_auth_for_user(user).all())
 
 
-def common_context(authentication_backends, user=None, plus_id=None, **extra):
+def common_context(authentication_backends, strategy, user=None, plus_id=None, **extra):
     """Common view context"""
     context = {
         'user': user,
@@ -25,7 +23,7 @@ def common_context(authentication_backends, user=None, plus_id=None, **extra):
 
     if user and is_authenticated(user):
         context['associated'] = dict((association.provider, association)
-                                     for association in associations(user))
+                                     for association in associations(user, strategy))
 
     if plus_id:
         context['plus_id'] = plus_id

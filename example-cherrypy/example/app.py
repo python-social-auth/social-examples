@@ -6,7 +6,7 @@ import cherrypy
 from jinja2 import Environment, FileSystemLoader
 
 from social_core.utils import setting_name
-from social_cherrypy.utils import backends
+from social_cherrypy.utils import backends, load_strategy
 from social_cherrypy.views import CherryPyPSAViews
 
 from common import filters
@@ -43,6 +43,7 @@ class PSAExample(CherryPyPSAViews):
     def render_home(self):
         context = common_context(
             cherrypy.config[setting_name('AUTHENTICATION_BACKENDS')],
+            load_strategy(),
             user=getattr(cherrypy.request, 'user', None),
             plus_id=cherrypy.config.get(setting_name('SOCIAL_AUTH_GOOGLE_PLUS_KEY'))
         )
@@ -80,9 +81,11 @@ except ImportError:
                        'local_settings.py.template as base')
 
 
-def run_app(port=8001):
+def run_app(listen_address="0.0.0.0:8001"):
+    host, port = listen_address.rsplit(':', 1)
     cherrypy.config.update({
-        'server.socket_port': port,
+        'server.socket_port': int(port),
+        'server.socket_host': host,
         'tools.sessions.on': True,
         'tools.sessions.storage_type': 'ram',
         'tools.db.on': True,

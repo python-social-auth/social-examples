@@ -2,6 +2,8 @@ from pyramid.view import view_config
 
 from common.utils import common_context
 
+from social_pyramid.utils import load_strategy
+
 from .auth import get_user
 
 
@@ -9,6 +11,7 @@ from .auth import get_user
 def home(request):
     return common_context(
         request.registry.settings['SOCIAL_AUTH_AUTHENTICATION_BACKENDS'],
+        load_strategy(request),
         user=get_user(request),
         plus_id=request.registry.settings.get(
             'SOCIAL_AUTH_GOOGLE_PLUS_KEY'
@@ -20,6 +23,7 @@ def home(request):
 def done(request):
     return common_context(
         request.registry.settings['SOCIAL_AUTH_AUTHENTICATION_BACKENDS'],
+        load_strategy(request),
         user=get_user(request),
         plus_id=request.registry.settings['SOCIAL_AUTH_GOOGLE_PLUS_KEY'],
     )

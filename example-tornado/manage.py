@@ -11,12 +11,16 @@ from example.app import Base, session, engine, application, tornado_settings
 
 
 if __name__ == '__main__':
-    if sys.argv[1] == 'syncdb':
+    if len(sys.argv) > 1 and sys.argv[1] == 'syncdb':
         from example.models import User
         init_social(Base, session, tornado_settings)
         Base.metadata.create_all(engine)
     else:
         init_social(Base, session, tornado_settings)
         http_server = tornado.httpserver.HTTPServer(application)
-        http_server.listen(8001)
+        listen_port = 8001
+        listen_interface = "0.0.0.0"
+        if len(sys.argv) > 1:
+            listen_interface, listen_port = sys.argv[1].rsplit(':', 1)
+        http_server.listen(listen_port, address=listen_interface)
         tornado.ioloop.IOLoop.instance().start()

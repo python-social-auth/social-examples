@@ -5,6 +5,8 @@ from django.shortcuts import render
 
 from common.utils import common_context
 
+from social_django.utils import load_strategy
+
 
 def render_to(template):
     """Simple render_to decorator"""
@@ -17,6 +19,7 @@ def render_to(template):
             if isinstance(out, dict):
                 out = render(request, template, common_context(
                     settings.AUTHENTICATION_BACKENDS,
+                    load_strategy(),
                     request.user,
                     plus_id=getattr(settings, 'SOCIAL_AUTH_GOOGLE_PLUS_KEY', None),
                     **out

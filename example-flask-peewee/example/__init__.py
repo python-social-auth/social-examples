@@ -8,6 +8,7 @@ from peewee import SqliteDatabase
 from common import filters
 from common.utils import common_context, url_for as common_url_for
 
+from social_flask.utils import load_strategy
 from social_flask.routes import social_auth
 from social_flask.template_filters import backends
 from social_flask_peewee.models import init_social
@@ -71,6 +72,7 @@ def inject_user():
 def load_common_context():
     return common_context(
         app.config['SOCIAL_AUTH_AUTHENTICATION_BACKENDS'],
+        load_strategy(),
         getattr(g, 'user', None),
         app.config.get('SOCIAL_AUTH_GOOGLE_PLUS_KEY')
     )

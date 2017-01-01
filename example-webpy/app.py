@@ -9,6 +9,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 from social_core.utils import setting_name
+from social_webpy.utils import load_strategy
 
 from common import filters
 from common.utils import common_context, url_for
@@ -138,6 +139,7 @@ class AppBaseView(social_app.BaseViewClass):
     def render_home(self):
         context = common_context(
             web.config[setting_name('AUTHENTICATION_BACKENDS')],
+            load_strategy(),
             user=self.get_current_user(),
             plus_id=web.config.get(setting_name('SOCIAL_AUTH_GOOGLE_PLUS_KEY'))
         )
