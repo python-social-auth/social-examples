@@ -9,7 +9,7 @@ from django.contrib.auth import logout as auth_logout, login
 from social_core.backends.oauth import BaseOAuth1, BaseOAuth2
 from social_core.backends.google import GooglePlusAuth
 from social_core.backends.utils import load_backends
-from social_django.utils import psa
+from social_django.utils import psa, load_strategy
 
 from .decorators import render_to
 
@@ -46,10 +46,13 @@ def validation_sent(request):
 @render_to('home.html')
 def require_email(request):
     """Email required page"""
-    backend = request.session['partial_pipeline']['backend']
+    strategy = load_strategy()
+    partial_token = request.GET.get('partial_token')
+    partial = strategy.partial_load(partial_token)
     return {
         'email_required': True,
-        'backend': backend
+        'partial_backend_name': partial.backend,
+        'partial_token': partial_token
     }
 
 

@@ -107,6 +107,26 @@ web.config[setting_name('AUTHENTICATION_BACKENDS')] = (
     'social_core.backends.username.UsernameAuth',
     'social_core.backends.upwork.UpworkOAuth',
 )
+web.config[setting_name('PIPELINE')] = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'common.pipeline.require_email',
+    'social_core.pipeline.mail.mail_validation',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.debug.debug',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+    'social_core.pipeline.debug.debug'
+)
+
+for name, value in local_settings.__dict__.items():
+    if name.startswith('SOCIAL_AUTH'):
+        web.config[name] = value
+
 web.config[setting_name('LOGIN_REDIRECT_URL')] = '/done/'
 
 from social_webpy.utils import psa, backends
@@ -115,7 +135,8 @@ from social_webpy import app as social_app
 
 urls = (
     '^/$', 'main',
-    '^/done/$', 'done',
+    '^/done/?$', 'done',
+    '^/email/?$', 'email',
     '', social_app.app_social
 )
 
@@ -136,12 +157,13 @@ render._lookup.globals.update({
 
 
 class AppBaseView(social_app.BaseViewClass):
-    def render_home(self):
+    def render_home(self, **extra):
         context = common_context(
             web.config[setting_name('AUTHENTICATION_BACKENDS')],
             load_strategy(),
             user=self.get_current_user(),
-            plus_id=web.config.get(setting_name('SOCIAL_AUTH_GOOGLE_PLUS_KEY'))
+            plus_id=web.config.get(setting_name('SOCIAL_AUTH_GOOGLE_PLUS_KEY')),
+            **extra
         )
         return render.home(**context)
 
@@ -155,6 +177,17 @@ class done(AppBaseView):
     def GET(self):
         return self.render_home()
 
+
+class email(AppBaseView):
+    def GET(self):
+        strategy = load_strategy()
+        partial_token = web.input(_method='get').get('partial_token')
+        partial = strategy.partial_load(partial_token)
+        return self.render_home(
+            email_required=True,
+            partial_backend_name=partial.backend,
+            partial_token=partial_token
+        )
 
 engine = create_engine('sqlite:///db.sqlite3')
 

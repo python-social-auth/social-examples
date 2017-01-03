@@ -295,10 +295,11 @@
       </form>
     </div>
 
-    {% if backend %}
+    {% if partial_backend_name %}
       <div id="email-required-modal" class="modal fade">
-        <form action="{{ url("social:complete", backend=backend) }}" method="post" role="form">
+        <form action="{{ url("social:complete", backend=partial_backend_name) }}" method="post" role="form">
           <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+          <input type="hidden" name="partial_token" value="{{ partial_token }}">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -310,7 +311,7 @@
                 <p>An email address is required.</p>
                 <div class="form-group">
                   <label class="control-label" for="email">Email address:</label>
-                  <input class="form-control" id="email" type="email" name="email" value="" />
+                  <input class="form-control" id="email" type="email" name="email" value="" autofocus />
                 </div>
               </div>
 

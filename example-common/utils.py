@@ -10,7 +10,10 @@ def is_authenticated(user):
 
 
 def associations(user, strategy):
-    return list(strategy.storage.user.get_social_auth_for_user(user).all())
+    user_associations = strategy.storage.user.get_social_auth_for_user(user)
+    if hasattr(user_associations, 'all'):
+        user_associations = user_associations.all()
+    return list(user_associations)
 
 
 def common_context(authentication_backends, strategy, user=None, plus_id=None, **extra):

@@ -31,7 +31,7 @@ Base = declarative_base()
 
 
 class BaseHandler(tornado.web.RequestHandler):
-    def render_home(self):
+    def render_home(self, **extra):
         from models import User
 
         user_id = self.get_secure_cookie('user_id')
@@ -45,7 +45,8 @@ class BaseHandler(tornado.web.RequestHandler):
             settings.SOCIAL_AUTH_AUTHENTICATION_BACKENDS,
             load_strategy(self),
             user=user,
-            plus_id=getattr(settings, 'SOCIAL_AUTH_GOOGLE_PLUS_KEY', None)
+            plus_id=getattr(settings, 'SOCIAL_AUTH_GOOGLE_PLUS_KEY', None),
+            **extra
         )
         self.render('home.html', **context)
 
@@ -58,6 +59,18 @@ class MainHandler(BaseHandler):
 class DoneHandler(BaseHandler):
     def get(self):
         self.render_home()
+
+
+class EmailRequiredHandler(BaseHandler):
+    def get(self):
+        strategy = load_strategy(self)
+        partial_token = self.request.arguments.get('partial_token')
+        partial = strategy.partial_load(partial_token)
+        self.render_home(
+            email_required=True,
+            partial_backend_name=partial.backend,
+            partial_token=partial_token
+        )
 
 
 class LogoutHandler(tornado.web.RequestHandler):
@@ -90,6 +103,7 @@ tornado_settings['template_loader'] = jinja2loader
 application = tornado.web.Application(SOCIAL_AUTH_ROUTES + [
     (r'/', MainHandler),
     (r'/done/', DoneHandler),
+    (r'/email', EmailRequiredHandler),
     (r'/logout/', LogoutHandler),
 ], cookie_secret='adb528da-20bb-4386-8eaf-09f041b569e0',
    **tornado_settings)

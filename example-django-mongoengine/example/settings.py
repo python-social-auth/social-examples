@@ -216,7 +216,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.auth_allowed',
     'social_core.pipeline.social_auth.social_user',
     'social_core.pipeline.user.get_username',
-    'app.pipeline.require_email',
+    'common.pipeline.require_email',
     'social_core.pipeline.mail.mail_validation',
     'social_core.pipeline.user.create_user',
     'social_core.pipeline.social_auth.associate_user',

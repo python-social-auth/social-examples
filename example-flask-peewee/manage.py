@@ -19,7 +19,8 @@ def syncdb():
         FlaskStorage.user,
         FlaskStorage.nonce,
         FlaskStorage.association,
-        FlaskStorage.code
+        FlaskStorage.code,
+        FlaskStorage.partial
     ]
     for model in models:
         model.create_table(True)
