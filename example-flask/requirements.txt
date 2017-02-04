@@ -1,3 +1,4 @@
+-r ../requirements.txt
 Flask
 Flask-Login
 Flask-Script

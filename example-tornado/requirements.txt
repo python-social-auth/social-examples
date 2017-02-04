@@ -1,2 +1,3 @@
+-r ../requirements.txt
 tornado-jinja2
 social-auth-app-tornado

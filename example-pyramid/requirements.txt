@@ -1,3 +1,4 @@
+-r ../requirements.txt
 social-auth-app-pyramid
 transaction
 waitress

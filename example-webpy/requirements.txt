@@ -1,3 +1,4 @@
+-r ../requirements.txt
 Jinja2
 web.py
 social-auth-app-webpy

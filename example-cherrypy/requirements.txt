@@ -1,2 +1,3 @@
+-r ../requirements.txt
 cherrypy
 social-auth-app-cherrypy
