@@ -16,7 +16,7 @@ run-django:
 	@ ${MAKE} check-local-settings example_path=example-django/example
 	@ ${MAKE} install-dependencies example_path=example-django
 	@ python example-django/manage.py migrate
-	@ python example-django/manage.py runserver $(DEFAULT_PORT)
+	@ python example-django/manage.py runserver $(DEFAULT_IFACE):$(DEFAULT_PORT)
 
 run-django-mongoengine:
 	@ ${MAKE} check-local-settings example_path=example-django-mongoengine/example
@@ -28,18 +28,18 @@ run-flask:
 	@ ${MAKE} check-local-settings example_path=example-flask/example
 	@ ${MAKE} install-dependencies example_path=example-flask
 	@ python example-flask/manage.py syncdb
-	@ python example-flask/manage.py runserver -p $(DEFAULT_PORT)
+	@ python example-flask/manage.py runserver -h $(DEFAULT_IFACE) -p $(DEFAULT_PORT)
 
 run-flask-peewee:
 	@ ${MAKE} check-local-settings example_path=example-flask-peewee/example
 	@ ${MAKE} install-dependencies example_path=example-flask-peewee
 	@ python example-flask-peewee/manage.py syncdb
-	@ python example-flask-peewee/manage.py runserver -p $(DEFAULT_PORT)
+	@ python example-flask-peewee/manage.py runserver -h $(DEFAULT_IFACE) -p $(DEFAULT_PORT)
 
 run-flask-mongoengine:
 	@ ${MAKE} check-local-settings example_path=example-flask-mongoengine/example
 	@ ${MAKE} install-dependencies example_path=example-flask-mongoengine
-	@ python example-flask-mongoengine/manage.py runserver -p $(DEFAULT_PORT)
+	@ python example-flask-mongoengine/manage.py runserver -h $(DEFAULT_IFACE) -p $(DEFAULT_PORT)
 
 run-webpy:
 	@ ${MAKE} check-local-settings example_path=example-webpy
