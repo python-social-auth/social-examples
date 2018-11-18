@@ -323,6 +323,63 @@
           </div>
         </form>
       </div>
+
+      <div id="country-required-modal" class="modal fade">
+        <form action="{{ url("social:complete", backend=partial_backend_name) }}" method="post" role="form">
+          <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+          <input type="hidden" name="partial_token" value="{{ partial_token }}">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Country required</h4>
+              </div>
+
+              <div class="modal-body">
+                <p>A country is required.</p>
+                <div class="form-group">
+                  <label class="control-label" for="country">Country:</label>
+                  <input class="form-control" id="country" type="text" name="country" value="" autofocus />
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Continue</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div id="city-required-modal" class="modal fade">
+        <form action="{{ url("social:complete", backend=partial_backend_name) }}" method="post" role="form">
+          <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+          <input type="hidden" name="partial_token" value="{{ partial_token }}">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">City required</h4>
+              </div>
+
+              <div class="modal-body">
+                <p>A city is required.</p>
+                <div class="form-group">
+                  <label class="control-label" for="city">City:</label>
+                  <input class="form-control" id="city" type="text" name="city" value="" autofocus />
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Continue</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
     {% endif %}
 
     <div id="validation-sent-modal" class="modal fade">
@@ -418,7 +475,7 @@
       };
 
       $(function () {
-        var $validationModal, $emailRequired;
+        var $validationModal, $emailRequired, $countryRequired, $cityRequired;
 
         modalDialog('#livejournal-modal', 'livejournal');
         modalDialog('#openid-modal', 'openid');
@@ -426,6 +483,8 @@
         modalDialog('#username-modal', 'username');
         $validationModal = modalDialog('#validation-sent-modal');
         $emailRequired = modalDialog('#email-required-modal');
+        $countryRequired = modalDialog('#country-required-modal');
+        $cityRequired = modalDialog('#city-required-modal');
 
         modalDialog('#ajax-login-modal', 'ajax-login', function (event) {
           var $backend, $accessToken, $accessTokenSecret, $fields, $result;
@@ -476,6 +535,14 @@
 
         {% if email_required %}
           $emailRequired.modal('show');
+        {% endif %}
+
+        {% if country_required %}
+          $countryRequired.modal('show');
+        {% endif %}
+
+        {% if city_required %}
+          $cityRequired.modal('show');
         {% endif %}
       });
     </script>

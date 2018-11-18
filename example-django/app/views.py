@@ -23,7 +23,7 @@ def logout(request):
 @render_to('home.html')
 def home(request):
     """Home view, displays login mechanism"""
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         return redirect('done')
 
 
@@ -51,6 +51,32 @@ def require_email(request):
     partial = strategy.partial_load(partial_token)
     return {
         'email_required': True,
+        'partial_backend_name': partial.backend,
+        'partial_token': partial_token
+    }
+
+
+@render_to('home.html')
+def require_country(request):
+    """Country required page"""
+    strategy = load_strategy()
+    partial_token = request.GET.get('partial_token')
+    partial = strategy.partial_load(partial_token)
+    return {
+        'country_required': True,
+        'partial_backend_name': partial.backend,
+        'partial_token': partial_token
+    }
+
+
+@render_to('home.html')
+def require_city(request):
+    """City required page"""
+    strategy = load_strategy()
+    partial_token = request.GET.get('partial_token')
+    partial = strategy.partial_load(partial_token)
+    return {
+        'city_required': True,
         'partial_backend_name': partial.backend,
         'partial_token': partial_token
     }

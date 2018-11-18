@@ -13,5 +13,7 @@ urlpatterns = [
     url(r'^ajax-auth/(?P<backend>[^/]+)/$', app_views.ajax_auth,
         name='ajax-auth'),
     url(r'^email/$', app_views.require_email, name='require_email'),
+    url(r'^country/$', app_views.require_country, name='require_country'),
+    url(r'^city/$', app_views.require_city, name='require_city'),
     url(r'', include('social_django.urls'))
 ]
