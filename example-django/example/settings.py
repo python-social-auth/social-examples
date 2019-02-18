@@ -177,6 +177,7 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.vk.VKOAuth2',
     'social_core.backends.weibo.WeiboOAuth2',
+    'social_core.backends.withings.WithingsOAuth',
     'social_core.backends.wunderlist.WunderlistOAuth2',
     'social_core.backends.xing.XingOAuth',
     'social_core.backends.yahoo.YahooOAuth',
@@ -191,6 +192,7 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.username.UsernameAuth',
     'social_core.backends.upwork.UpworkOAuth',
     'social_core.backends.slack.SlackOAuth2',
+    'social_core.backends.auth0.Auth0OAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
