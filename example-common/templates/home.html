@@ -299,7 +299,6 @@
       <div id="email-required-modal" class="modal fade">
         <form action="{{ url("social:complete", backend=partial_backend_name) }}" method="post" role="form">
           <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-          <input type="hidden" name="partial_token" value="{{ partial_token }}">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -327,7 +326,6 @@
       <div id="country-required-modal" class="modal fade">
         <form action="{{ url("social:complete", backend=partial_backend_name) }}" method="post" role="form">
           <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-          <input type="hidden" name="partial_token" value="{{ partial_token }}">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -355,7 +353,6 @@
       <div id="city-required-modal" class="modal fade">
         <form action="{{ url("social:complete", backend=partial_backend_name) }}" method="post" role="form">
           <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-          <input type="hidden" name="partial_token" value="{{ partial_token }}">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
