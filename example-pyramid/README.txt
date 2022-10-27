@@ -8,7 +8,6 @@ Getting Started
 
 - $VENV/bin/python setup.py develop
 
-- $VENV/bin/initialize_example_db development.ini
+- $VENV/bin/python example/scripts/initializedb.py development.ini
 
 - $VENV/bin/pserve development.ini
-
