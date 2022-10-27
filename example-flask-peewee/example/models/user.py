@@ -15,6 +15,7 @@ class BaseModel(Model):
     class Meta:
         database = database_proxy
 
+
 # the user model specifies its fields (or columns) declaratively, like django
 class User(BaseModel, UserMixin):
     username = CharField(unique=True)
@@ -24,4 +25,4 @@ class User(BaseModel, UserMixin):
     join_date = DateTimeField(default=datetime.now)
 
     class Meta:
-        order_by = ('username',)
+        order_by = ("username",)

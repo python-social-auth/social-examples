@@ -19,16 +19,31 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='CustomUserSocialAuth',
+            name="CustomUserSocialAuth",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('provider', models.CharField(max_length=32)),
-                ('uid', models.CharField(max_length=255)),
-                ('extra_data', social_django.fields.JSONField(default={})),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='custom_social_auth', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("provider", models.CharField(max_length=32)),
+                ("uid", models.CharField(max_length=255)),
+                ("extra_data", social_django.fields.JSONField(default={})),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="custom_social_auth",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
             bases=(models.Model, social_django.storage.DjangoUserMixin),
         ),
