@@ -1,11 +1,11 @@
 from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
+from zope.sqlalchemy import register
 
-from zope.sqlalchemy import ZopeTransactionExtension
 
-
-DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
+DBSession = scoped_session(sessionmaker(expire_on_commit=False))
+register(DBSession)
 Base = declarative_base()
 
 

@@ -3,7 +3,7 @@ import sys
 from sqlalchemy import engine_from_config
 
 from pyramid.config import Configurator
-from pyramid.session import UnencryptedCookieSessionFactoryConfig
+from pyramid.session import SignedCookieSessionFactory
 
 from social_pyramid.models import init_social
 
@@ -11,8 +11,8 @@ from common import filters, utils
 
 from .models import DBSession, Base
 
-import settings as app_settings
-import local_settings as app_local_settings
+import example.settings as app_settings
+import example.local_settings as app_local_settings
 
 
 def get_settings(module):
@@ -28,7 +28,7 @@ def main(global_config, **settings):
     engine = engine_from_config(settings, "sqlalchemy.")
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
-    session_factory = UnencryptedCookieSessionFactoryConfig("thisisasecret")
+    session_factory = SignedCookieSessionFactory("thisisasecret")
     settings["jinja2.globals"] = {"url": utils.url_for}
     settings["jinja2.filters"] = {
         "backend_name": filters.backend_name,
