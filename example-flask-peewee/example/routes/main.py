@@ -1,9 +1,7 @@
-from flask import render_template, redirect, request
-from flask_login import login_required, logout_user
-
-from social_flask.utils import load_strategy
-
 from example import app
+from flask import redirect, render_template, request
+from flask_login import login_required, logout_user
+from social_flask.utils import load_strategy
 
 
 @app.route("/")

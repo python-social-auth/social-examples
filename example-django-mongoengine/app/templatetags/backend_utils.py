@@ -1,9 +1,7 @@
 import re
 
 from django import template
-
 from social_core.backends.oauth import OAuthAuth
-
 
 register = template.Library()
 

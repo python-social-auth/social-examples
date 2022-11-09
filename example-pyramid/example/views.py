@@ -1,7 +1,5 @@
-from pyramid.view import view_config
-
 from common.utils import common_context
-
+from pyramid.view import view_config
 from social_pyramid.utils import load_strategy
 
 from .auth import get_user

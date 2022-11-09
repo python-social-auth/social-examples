@@ -2,9 +2,7 @@
 import sys
 
 import cherrypy
-
 from sqlalchemy import create_engine
-
 
 cherrypy.config.update(
     {
@@ -12,11 +10,10 @@ cherrypy.config.update(
     }
 )
 
-from social_cherrypy.models import SocialBase
+from example.app import DATABASE_NAME, run_app
 from example.db import Base
 from example.db.user import User
-
-from example.app import run_app, DATABASE_NAME
+from social_cherrypy.models import SocialBase
 
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "syncdb":

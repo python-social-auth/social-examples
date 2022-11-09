@@ -1,9 +1,7 @@
 from datetime import datetime
 
-from peewee import Model, Proxy, CharField, BooleanField, DateTimeField
-
 from flask_login import UserMixin
-
+from peewee import BooleanField, CharField, DateTimeField, Model, Proxy
 
 database_proxy = Proxy()
 

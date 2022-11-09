@@ -1,11 +1,8 @@
 import re
 
 from django import template
-
 from social_core.backends.oauth import OAuthAuth
-
 from social_django.utils import Storage
-
 
 register = template.Library()
 

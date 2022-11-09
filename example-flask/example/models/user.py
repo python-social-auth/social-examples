@@ -1,10 +1,7 @@
-from sqlalchemy import Column, String, Integer, Boolean
-from sqlalchemy.ext.declarative import declarative_base
-
-from flask_login import UserMixin
-
 from example import db_session
-
+from flask_login import UserMixin
+from sqlalchemy import Boolean, Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 Base.query = db_session.query_property()

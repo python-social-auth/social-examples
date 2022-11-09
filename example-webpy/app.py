@@ -1,20 +1,15 @@
-import sys
 import os
-
-import web
-
-from web.contrib.template import render_jinja
-
-from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
-
-from social_core.utils import setting_name
-from social_webpy.utils import load_strategy
-
-from common import filters
-from common.utils import common_context, url_for
+import sys
 
 import local_settings
+import web
+from common import filters
+from common.utils import common_context, url_for
+from social_core.utils import setting_name
+from social_webpy.utils import load_strategy
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
+from web.contrib.template import render_jinja
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -129,9 +124,8 @@ for name, value in local_settings.__dict__.items():
 
 web.config[setting_name("LOGIN_REDIRECT_URL")] = "/done/"
 
-from social_webpy.utils import psa, backends
 from social_webpy import app as social_app
-
+from social_webpy.utils import backends, psa
 
 urls = (
     "^/$",

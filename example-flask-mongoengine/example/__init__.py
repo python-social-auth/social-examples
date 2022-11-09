@@ -1,17 +1,15 @@
 import os
 
+from common import filters
+from common.utils import common_context
+from common.utils import url_for as common_url_for
 from flask import Flask, g, url_for
 from flask_login import LoginManager, current_user
 from flask_mongoengine import MongoEngine
-
-from common import filters
-from common.utils import common_context, url_for as common_url_for
-
-from social_flask.utils import load_strategy
 from social_flask.routes import social_auth
 from social_flask.template_filters import backends
+from social_flask.utils import load_strategy
 from social_flask_mongoengine.models import init_social
-
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -34,8 +32,7 @@ login_manager.login_view = "main"
 login_manager.login_message = ""
 login_manager.init_app(app)
 
-from example import models
-from example import routes
+from example import models, routes
 
 
 @login_manager.user_loader

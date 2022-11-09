@@ -4,11 +4,8 @@ import sys
 
 import tornado.httpserver
 import tornado.ioloop
-
+from example.app import Base, application, engine, session, tornado_settings
 from social_tornado.models import init_social
-
-from example.app import Base, session, engine, application, tornado_settings
-
 
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "syncdb":
