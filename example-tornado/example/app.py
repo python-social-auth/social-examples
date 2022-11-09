@@ -1,24 +1,17 @@
 import os
 
+import settings
+import tornado.options
+import tornado.web
+from common import filters
+from common.utils import common_context, url_for
+from jinja2 import Environment, FileSystemLoader
+from social_tornado.routes import SOCIAL_AUTH_ROUTES
+from social_tornado.utils import load_strategy
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
-
-from jinja2 import Environment, FileSystemLoader
-
 from tornado_jinja2 import Jinja2Loader
-
-import tornado.options
-import tornado.web
-
-from common import filters
-from common.utils import common_context, url_for
-
-from social_tornado.utils import load_strategy
-from social_tornado.routes import SOCIAL_AUTH_ROUTES
-
-import settings
-
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATABASE_NAME = "sqlite:///{dbname}".format(dbname=os.path.join(BASE_DIR, "db.sqlite3"))
@@ -95,9 +88,9 @@ jinja2env.globals.update({"url": url_for})
 jinja2loader = Jinja2Loader(jinja2env)
 
 tornado.options.parse_command_line()
-tornado_settings = dict(
-    (k, getattr(settings, k)) for k in dir(settings) if not k.startswith("__")
-)
+tornado_settings = {
+    k: getattr(settings, k) for k in dir(settings) if not k.startswith("__")
+}
 tornado_settings["template_loader"] = jinja2loader
 application = tornado.web.Application(
     SOCIAL_AUTH_ROUTES

@@ -2,22 +2,17 @@ import os
 import sys
 
 import cherrypy
-
-from jinja2 import Environment, FileSystemLoader
-
-from social_core.utils import setting_name
-from social_cherrypy.utils import backends, load_strategy
-from social_cherrypy.views import CherryPyPSAViews
-
+import settings
 from common import filters
 from common.utils import common_context, url_for
-
-import settings
+from jinja2 import Environment, FileSystemLoader
+from social_cherrypy.utils import backends, load_strategy
+from social_cherrypy.views import CherryPyPSAViews
+from social_core.utils import setting_name
 
 from .db.saplugin import SAEnginePlugin
 from .db.satool import SATool
 from .db.user import User
-
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATABASE_NAME = "sqlite:///{dbname}".format(dbname=os.path.join(BASE_DIR, "db.sqlite3"))

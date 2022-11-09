@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
 from cherrypy.process import plugins
-
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
@@ -10,7 +8,7 @@ class SAEnginePlugin(plugins.SimplePlugin):
         self.sa_engine = None
         self.connection_string = connection_string
         self.session = scoped_session(sessionmaker(autoflush=True, autocommit=False))
-        super(SAEnginePlugin, self).__init__(bus)
+        super().__init__(bus)
 
     def start(self):
         self.sa_engine = create_engine(self.connection_string, echo=False)

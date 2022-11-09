@@ -1,7 +1,6 @@
 #!/usr/bin/env python
-from flask_script import Server, Manager, Shell
 from example import app, db
-
+from flask_script import Manager, Server, Shell
 
 manager = Manager(app)
 manager.add_command("runserver", Server())

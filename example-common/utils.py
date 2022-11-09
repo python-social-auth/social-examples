@@ -25,10 +25,10 @@ def common_context(authentication_backends, strategy, user=None, plus_id=None, *
     }
 
     if user and is_authenticated(user):
-        context["associated"] = dict(
-            (association.provider, association)
+        context["associated"] = {
+            association.provider: association
             for association in associations(user, strategy)
-        )
+        }
 
     if plus_id:
         context["plus_id"] = plus_id

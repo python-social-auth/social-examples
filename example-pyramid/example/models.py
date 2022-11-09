@@ -1,8 +1,7 @@
-from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy import Boolean, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
 from zope.sqlalchemy import register
-
 
 DBSession = scoped_session(sessionmaker(expire_on_commit=False))
 register(DBSession)

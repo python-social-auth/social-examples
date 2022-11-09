@@ -1,16 +1,13 @@
 import os
 import sys
 
-from sqlalchemy import engine_from_config
-
+from example import get_settings
+from example import settings as app_settings
+from example.models import Base, DBSession
 from pyramid.paster import get_appsettings, setup_logging
 from pyramid.scripts.common import parse_vars
-
 from social_pyramid.models import init_social
-
-from example import get_settings
-from example.models import DBSession, Base
-from example import settings as app_settings
+from sqlalchemy import engine_from_config
 
 
 def usage(argv):
