@@ -21,9 +21,7 @@ import settings
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATABASE_NAME = 'sqlite:///{dbname}'.format(
-    dbname=os.path.join(BASE_DIR, 'db.sqlite3')
-)
+DATABASE_NAME = "sqlite:///{dbname}".format(dbname=os.path.join(BASE_DIR, "db.sqlite3"))
 
 engine = create_engine(DATABASE_NAME, echo=False)
 session = scoped_session(sessionmaker(bind=engine))
@@ -34,7 +32,7 @@ class BaseHandler(tornado.web.RequestHandler):
     def render_home(self, **extra):
         from models import User
 
-        user_id = self.get_secure_cookie('user_id')
+        user_id = self.get_secure_cookie("user_id")
 
         if user_id:
             user = session.query(User).get(int(user_id))
@@ -45,10 +43,10 @@ class BaseHandler(tornado.web.RequestHandler):
             settings.SOCIAL_AUTH_AUTHENTICATION_BACKENDS,
             load_strategy(self),
             user=user,
-            plus_id=getattr(settings, 'SOCIAL_AUTH_GOOGLE_PLUS_KEY', None),
+            plus_id=getattr(settings, "SOCIAL_AUTH_GOOGLE_PLUS_KEY", None),
             **extra
         )
-        self.render('home.html', **context)
+        self.render("home.html", **context)
 
 
 class MainHandler(BaseHandler):
@@ -64,46 +62,51 @@ class DoneHandler(BaseHandler):
 class EmailRequiredHandler(BaseHandler):
     def get(self):
         strategy = load_strategy(self)
-        partial_token = self.request.arguments.get('partial_token')
+        partial_token = self.request.arguments.get("partial_token")
         partial = strategy.partial_load(partial_token)
         self.render_home(
             email_required=True,
             partial_backend_name=partial.backend,
-            partial_token=partial_token
+            partial_token=partial_token,
         )
 
 
 class LogoutHandler(tornado.web.RequestHandler):
     def get(self):
-        self.request.redirect('/')
+        self.request.redirect("/")
 
 
 jinja2env = Environment(
-    loader=FileSystemLoader(os.path.join(BASE_DIR, 'common', 'templates'))
+    loader=FileSystemLoader(os.path.join(BASE_DIR, "common", "templates"))
 )
-jinja2env.filters.update({
-    'backend_name': filters.backend_name,
-    'backend_class': filters.backend_class,
-    'icon_name': filters.icon_name,
-    'social_backends': filters.social_backends,
-    'legacy_backends': filters.legacy_backends,
-    'oauth_backends': filters.oauth_backends,
-    'filter_backends': filters.filter_backends,
-    'slice_by': filters.slice_by
-})
-jinja2env.globals.update({
-    'url': url_for
-})
+jinja2env.filters.update(
+    {
+        "backend_name": filters.backend_name,
+        "backend_class": filters.backend_class,
+        "icon_name": filters.icon_name,
+        "social_backends": filters.social_backends,
+        "legacy_backends": filters.legacy_backends,
+        "oauth_backends": filters.oauth_backends,
+        "filter_backends": filters.filter_backends,
+        "slice_by": filters.slice_by,
+    }
+)
+jinja2env.globals.update({"url": url_for})
 jinja2loader = Jinja2Loader(jinja2env)
 
 tornado.options.parse_command_line()
-tornado_settings = dict((k, getattr(settings, k)) for k in dir(settings)
-                        if not k.startswith('__'))
-tornado_settings['template_loader'] = jinja2loader
-application = tornado.web.Application(SOCIAL_AUTH_ROUTES + [
-    (r'/', MainHandler),
-    (r'/done/', DoneHandler),
-    (r'/email', EmailRequiredHandler),
-    (r'/logout/', LogoutHandler),
-], cookie_secret='adb528da-20bb-4386-8eaf-09f041b569e0',
-   **tornado_settings)
+tornado_settings = dict(
+    (k, getattr(settings, k)) for k in dir(settings) if not k.startswith("__")
+)
+tornado_settings["template_loader"] = jinja2loader
+application = tornado.web.Application(
+    SOCIAL_AUTH_ROUTES
+    + [
+        (r"/", MainHandler),
+        (r"/done/", DoneHandler),
+        (r"/email", EmailRequiredHandler),
+        (r"/logout/", LogoutHandler),
+    ],
+    cookie_secret="adb528da-20bb-4386-8eaf-09f041b569e0",
+    **tornado_settings
+)

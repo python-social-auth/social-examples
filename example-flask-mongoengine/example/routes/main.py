@@ -6,31 +6,33 @@ from social_flask.utils import load_strategy
 from example import app
 
 
-@app.route('/')
+@app.route("/")
 def main():
-    return render_template('home.html')
+    return render_template("home.html")
 
 
-@app.route('/done/')
+@app.route("/done/")
 @login_required
 def done():
-    return render_template('home.html')
+    return render_template("home.html")
 
 
-@app.route('/email')
+@app.route("/email")
 def require_email():
     strategy = load_strategy()
-    partial_token = request.args.get('partial_token')
+    partial_token = request.args.get("partial_token")
     partial = strategy.partial_load(partial_token)
-    return render_template('home.html',
-                           email_required=True,
-                           partial_backend_name=partial.backend,
-                           partial_token=partial_token)
+    return render_template(
+        "home.html",
+        email_required=True,
+        partial_backend_name=partial.backend,
+        partial_token=partial_token,
+    )
 
 
-@app.route('/logout/')
+@app.route("/logout/")
 @login_required
 def logout():
     """Logout view"""
     logout_user()
-    return redirect('/')
+    return redirect("/")
