@@ -1,6 +1,6 @@
 import click
-from flask.cli import FlaskGroup
 from example import app, db_session, engine
+from flask.cli import FlaskGroup
 
 
 @click.group(cls=FlaskGroup, create_app=lambda: app)
@@ -11,6 +11,7 @@ def cli():
     def make_shell_context():
         return dict(db_session=db_session)
 
+
 @app.cli.command()
 def syncdb():
     from example.models import user
@@ -20,5 +21,5 @@ def syncdb():
     models.PSABase.metadata.create_all(engine)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cli()

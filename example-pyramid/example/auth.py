@@ -1,7 +1,7 @@
 from example.models import DBSession, User
-from sqlalchemy import select
 from pyramid.events import BeforeRender, subscriber
 from social_pyramid.utils import backends
+from sqlalchemy import select
 
 
 def login_user(backend, user, user_social_auth):

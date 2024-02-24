@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-from example import app, database
 import click
+from example import app, database
 from flask.cli import FlaskGroup
 
 
@@ -26,5 +26,5 @@ def syncdb():
         model.create_table(True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cli()

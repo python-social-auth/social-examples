@@ -2,9 +2,9 @@ import os
 import sys
 
 import cherrypy
-from example import settings
 from common import filters
 from common.utils import common_context, url_for
+from example import settings
 from jinja2 import Environment, FileSystemLoader
 from social_cherrypy.utils import backends, load_strategy
 from social_cherrypy.views import CherryPyPSAViews

@@ -1,15 +1,15 @@
 import os
 
-from example import settings
 import tornado.options
 import tornado.web
 from common import filters
 from common.utils import common_context, url_for
+from example import settings
 from jinja2 import Environment, FileSystemLoader
 from social_tornado.routes import SOCIAL_AUTH_ROUTES
 from social_tornado.utils import load_strategy
 from sqlalchemy import create_engine
-from sqlalchemy.orm import Session, DeclarativeBase
+from sqlalchemy.orm import DeclarativeBase, Session
 from tornado_jinja2 import Jinja2Loader
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

@@ -1,10 +1,9 @@
 import os
 
-from example import settings
-from example import local_settings
 import web
 from common import filters
 from common.utils import common_context, url_for
+from example import local_settings, settings
 from social_core.utils import setting_name
 from social_webpy.utils import load_strategy
 from sqlalchemy import create_engine
@@ -15,7 +14,9 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 web.config.debug = False
 web.config[setting_name("USER_MODEL")] = "models.User"
-web.config[setting_name("AUTHENTICATION_BACKENDS")] = settings.SOCIAL_AUTH_AUTHENTICATION_BACKENDS
+web.config[setting_name("AUTHENTICATION_BACKENDS")] = (
+    settings.SOCIAL_AUTH_AUTHENTICATION_BACKENDS
+)
 web.config[setting_name("PIPELINE")] = settings.SOCIAL_AUTH_PIPELINE
 
 for name, value in local_settings.__dict__.items():

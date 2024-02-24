@@ -1,7 +1,7 @@
 from typing import Optional
 
 from sqlalchemy import String
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, Session
+from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column
 from zope.sqlalchemy import register
 
 DBSession = Session(expire_on_commit=False)

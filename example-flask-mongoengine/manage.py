@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-from example import app, db
 import click
+from example import app, db
 from flask.cli import FlaskGroup
 
 
@@ -13,5 +13,5 @@ def cli():
         return dict(db=db)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cli()
