@@ -1,15 +1,17 @@
-from app import Base
-from sqlalchemy import Column, Integer, String
+from example.app import Base
+from sqlalchemy import String
+from sqlalchemy.orm import Mapped, mapped_column
 
 
 class User(Base):
     __tablename__ = "users"
-    id = Column(Integer, primary_key=True)
-    username = Column(String(30), nullable=False)
-    first_name = Column(String(30), nullable=True)
-    last_name = Column(String(30), nullable=True)
-    email = Column(String(75), nullable=False)
-    password = Column(String(128), nullable=True)
+    
+    id: Mapped[int] = mapped_column(primary_key=True)
+    username: Mapped[str] = mapped_column(String(30), nullable=False)
+    first_name: Mapped[str] = mapped_column(String(30), nullable=True)
+    last_name: Mapped[str] = mapped_column(String(30), nullable=True)
+    email: Mapped[str] = mapped_column(String(75), nullable=False)
+    password: Mapped[str] = mapped_column(String(128), nullable=True)
 
     def is_authenticated(self):
         return True

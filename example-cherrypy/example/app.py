@@ -2,7 +2,7 @@ import os
 import sys
 
 import cherrypy
-import settings
+from example import settings
 from common import filters
 from common.utils import common_context, url_for
 from jinja2 import Environment, FileSystemLoader
@@ -66,7 +66,7 @@ def get_settings(module):
 SOCIAL_SETTINGS = get_settings(settings)
 
 try:
-    import local_settings
+    from example import local_settings
 
     SOCIAL_SETTINGS.update(get_settings(local_settings))
 except ImportError:
@@ -82,7 +82,7 @@ def run_app(listen_address="0.0.0.0:8001"):
             "server.socket_port": int(port),
             "server.socket_host": host,
             "tools.sessions.on": True,
-            "tools.sessions.storage_type": "ram",
+            "tools.sessions.storage_class": cherrypy.lib.sessions.RamSession,
             "tools.db.on": True,
             "tools.authenticate.on": True,
             "SOCIAL_AUTH_USER_MODEL": "example.db.user.User",

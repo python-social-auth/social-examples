@@ -1,13 +1,13 @@
 from cherrypy.process import plugins
 from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.orm import Session
 
 
 class SAEnginePlugin(plugins.SimplePlugin):
     def __init__(self, bus, connection_string=None):
         self.sa_engine = None
         self.connection_string = connection_string
-        self.session = scoped_session(sessionmaker(autoflush=True, autocommit=False))
+        self.session = Session(autoflush=True, autocommit=False)
         super().__init__(bus)
 
     def start(self):
@@ -23,7 +23,7 @@ class SAEnginePlugin(plugins.SimplePlugin):
             self.sa_engine = None
 
     def bind(self):
-        self.session.configure(bind=self.sa_engine)
+        self.session.bind = self.sa_engine
         return self.session
 
     def commit(self):
@@ -33,4 +33,4 @@ class SAEnginePlugin(plugins.SimplePlugin):
             self.session.rollback()
             raise
         finally:
-            self.session.remove()
+            self.session.close()

@@ -21,7 +21,6 @@ def done(request):
         request.registry.settings["SOCIAL_AUTH_AUTHENTICATION_BACKENDS"],
         load_strategy(request),
         user=get_user(request),
-        plus_id=request.registry.settings["SOCIAL_AUTH_GOOGLE_PLUS_KEY"],
     )
 
 

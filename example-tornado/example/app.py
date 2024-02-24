@@ -1,6 +1,6 @@
 import os
 
-import settings
+from example import settings
 import tornado.options
 import tornado.web
 from common import filters
@@ -9,26 +9,28 @@ from jinja2 import Environment, FileSystemLoader
 from social_tornado.routes import SOCIAL_AUTH_ROUTES
 from social_tornado.utils import load_strategy
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.orm import Session, DeclarativeBase
 from tornado_jinja2 import Jinja2Loader
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATABASE_NAME = "sqlite:///{dbname}".format(dbname=os.path.join(BASE_DIR, "db.sqlite3"))
 
 engine = create_engine(DATABASE_NAME, echo=False)
-session = scoped_session(sessionmaker(bind=engine))
-Base = declarative_base()
+session = Session(engine)
+
+
+class Base(DeclarativeBase):
+    pass
 
 
 class BaseHandler(tornado.web.RequestHandler):
     def render_home(self, **extra):
-        from models import User
+        from example.models import User
 
         user_id = self.get_secure_cookie("user_id")
 
         if user_id:
-            user = session.query(User).get(int(user_id))
+            user = session.get(User, int(user_id))
         else:
             user = None
 
@@ -39,6 +41,7 @@ class BaseHandler(tornado.web.RequestHandler):
             plus_id=getattr(settings, "SOCIAL_AUTH_GOOGLE_PLUS_KEY", None),
             **extra
         )
+
         self.render("home.html", **context)
 
 

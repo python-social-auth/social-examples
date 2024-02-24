@@ -1,16 +1,18 @@
-from sqlalchemy import Boolean, Column, Integer, String
+from sqlalchemy import Boolean, String
+from sqlalchemy.orm import Mapped, mapped_column
+from typing import Optional
 
 from . import Base
 
 
 class User(Base):
     __tablename__ = "users"
-    id = Column(Integer, primary_key=True)
-    username = Column(String(200))
-    password = Column(String(200), default="")
-    name = Column(String(100))
-    email = Column(String(200))
-    active = Column(Boolean, default=True)
+    id: Mapped[int] = mapped_column(primary_key=True)
+    username: Mapped[str] = mapped_column(String(200))
+    password: Mapped[str] = mapped_column(String(200), default="")
+    name: Mapped[Optional[str]] = mapped_column(String(100))
+    email: Mapped[Optional[str]] = mapped_column(String(200))
+    active: Mapped[bool] = mapped_column(default=True)
 
     def is_active(self):
         return self.active

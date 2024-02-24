@@ -1,21 +1,26 @@
-from sqlalchemy import Boolean, Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import scoped_session, sessionmaker
+from typing import Optional
+
+from sqlalchemy import String
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, Session
 from zope.sqlalchemy import register
 
-DBSession = scoped_session(sessionmaker(expire_on_commit=False))
+DBSession = Session(expire_on_commit=False)
 register(DBSession)
-Base = declarative_base()
+
+
+class Base(DeclarativeBase):
+    pass
 
 
 class User(Base):
     __tablename__ = "users"
-    id = Column(Integer, primary_key=True)
-    username = Column(String(200))
-    email = Column(String(200))
-    password = Column(String(200), default="")
-    name = Column(String(100))
-    active = Column(Boolean, default=True)
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    username: Mapped[str] = mapped_column(String(200))
+    email: Mapped[str] = mapped_column(String(200))
+    password: Mapped[str] = mapped_column(String(200), default="")
+    name: Mapped[Optional[str]] = mapped_column(String(100))
+    active: Mapped[bool] = mapped_column(default=True)
 
     def is_active(self):
         return self.active

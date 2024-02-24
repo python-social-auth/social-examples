@@ -22,7 +22,7 @@ def get_settings(module):
 def main(global_config, **settings):
     """This function returns a Pyramid WSGI application."""
     engine = engine_from_config(settings, "sqlalchemy.")
-    DBSession.configure(bind=engine)
+    DBSession.bind = engine
     Base.metadata.bind = engine
     session_factory = SignedCookieSessionFactory("thisisasecret")
     settings["jinja2.globals"] = {"url": utils.url_for}

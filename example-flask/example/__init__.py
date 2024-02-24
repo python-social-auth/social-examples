@@ -10,7 +10,7 @@ from social_flask.template_filters import backends
 from social_flask.utils import load_strategy
 from social_flask_sqlalchemy.models import init_social
 from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.orm import Session
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,8 +25,7 @@ except ImportError:
 
 # DB
 engine = create_engine(app.config["SQLALCHEMY_DATABASE_URI"])
-Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-db_session = scoped_session(Session)
+db_session = Session(engine, autocommit=False, autoflush=False)
 
 app.register_blueprint(social_auth)
 init_social(app, db_session)
@@ -42,7 +41,7 @@ from example import models, routes
 @login_manager.user_loader
 def load_user(userid):
     try:
-        return models.user.User.query.get(int(userid))
+        return db_session.get(models.user.User, int(userid))
     except (TypeError, ValueError):
         pass
 
@@ -60,7 +59,7 @@ def commit_on_success(error=None):
     else:
         db_session.rollback()
 
-    db_session.remove()
+    db_session.close()
 
 
 @app.context_processor

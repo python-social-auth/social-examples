@@ -1,4 +1,5 @@
 from example.models import DBSession, User
+from sqlalchemy import select
 from pyramid.events import BeforeRender, subscriber
 from social_pyramid.utils import backends
 
@@ -14,7 +15,7 @@ def login_required(request):
 def get_user(request):
     user_id = request.session.get("user_id")
     if user_id:
-        user = DBSession.query(User).filter(User.id == user_id).first()
+        user = DBSession.scalar(select(User).where(User.id == user_id))
     else:
         user = None
     return user
