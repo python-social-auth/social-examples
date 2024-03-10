@@ -26,7 +26,7 @@ def done(request):
 
 @view_config(  # fix: skip
     route_name="email_required",  # fix: skip
-    renderer="common:templates/home.jinja2"  # fix: skip
+    renderer="common:templates/home.jinja2",  # fix: skip
 )
 def email_required(request):
     strategy = load_strategy(request)
