@@ -1,15 +1,18 @@
-#!/usr/bin/env python
+import click
 from example import app, db_session, engine
-from flask_script import Manager, Server, Shell
-
-manager = Manager(app)
-manager.add_command("runserver", Server())
-manager.add_command(
-    "shell", Shell(make_context=lambda: {"app": app, "db_session": db_session})
-)
+from flask.cli import FlaskGroup
 
 
-@manager.command
+@click.group(cls=FlaskGroup, create_app=lambda: app)
+def cli():
+    """Management script for the Example Flask Social Login application."""
+
+    @app.shell_context_processor
+    def make_shell_context():
+        return dict(db_session=db_session)
+
+
+@app.cli.command()
 def syncdb():
     from example.models import user
     from social_flask_sqlalchemy import models
@@ -19,4 +22,4 @@ def syncdb():
 
 
 if __name__ == "__main__":
-    manager.run()
+    cli()
