@@ -40,9 +40,8 @@ class PSAExample(CherryPyPSAViews):
             load_strategy(),
             user=getattr(cherrypy.request, "user", None),
         )
-        return cherrypy.tools.jinja2env.get_template("home.html").render(  # fix: skip
-            **context
-        )
+        jinja2env = cherrypy.tools.jinja2env
+        return jinja2env.get_template("home.html").render(**context)
 
 
 def load_user():

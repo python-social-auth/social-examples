@@ -16,7 +16,8 @@ def associations(user, strategy):
     return list(user_associations)
 
 
-def common_context(authentication_backends, strategy, user=None, plus_id=None, **extra):
+def common_context(  # fix: skip
+        authentication_backends, strategy, user=None, plus_id=None, **extra):
     """Common view context"""
     context = {
         "user": user,
