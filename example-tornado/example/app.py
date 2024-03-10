@@ -14,7 +14,8 @@ from tornado_jinja2 import Jinja2Loader
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATABASE_NAME = "sqlite:///{dbname}".format(  # fix: skip
-    dbname=os.path.join(BASE_DIR, "db.sqlite3"))
+    dbname=os.path.join(BASE_DIR, "db.sqlite3")
+)
 
 engine = create_engine(DATABASE_NAME, echo=False)
 session = Session(engine)

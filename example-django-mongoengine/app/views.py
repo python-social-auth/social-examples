@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect
 from social_core.backends.oauth import BaseOAuth1, BaseOAuth2
-from social_django.utils import psa, load_strategy
+from social_django.utils import load_strategy, psa
 
 from .decorators import render_to
 

@@ -24,8 +24,9 @@ def done(request):
     )
 
 
-@view_config(route_name="email_required",  # fix: skip
-             renderer="common:templates/home.jinja2")
+@view_config(
+    route_name="email_required", renderer="common:templates/home.jinja2"  # fix: skip
+)
 def email_required(request):
     strategy = load_strategy(request)
     partial_token = request.GET.get("partial_token")
