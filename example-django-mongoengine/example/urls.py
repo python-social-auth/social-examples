@@ -9,7 +9,8 @@ urlpatterns = [
     url(r"^login/$", app_views.home),
     url(r"^logout/$", app_views.logout),
     url(r"^done/$", app_views.done, name="done"),
-    url(r"^ajax-auth/(?P<backend>[^/]+)/$", app_views.ajax_auth, name="ajax-auth"),
+    url(r"^ajax-auth/(?P<backend>[^/]+)/$",  # fix: skip
+        app_views.ajax_auth, name="ajax-auth"),
     url(r"^email/$", app_views.require_email, name="require_email"),
     url(r"", include("social_django.urls")),
 ]

@@ -49,7 +49,7 @@ def social_backends(backends):
         if name not in ["username", "email"]
     ]
     backends.sort(key=lambda b: b[0])
-    return [backends[n : n + 10] for n in range(0, len(backends), 10)]
+    return [backends[n:n + 10] for n in range(0, len(backends), 10)]
 
 
 @register.filter
@@ -80,7 +80,8 @@ def associated(context, backend):
     context["association"] = None
     if user and user.is_authenticated():
         try:
-            context["association"] = user.social_auth.filter(provider=backend.name)[0]
+            context["association"] = user.social_auth.filter(  # fix: skip
+                provider=backend.name)[0]
         except IndexError:
             pass
     return ""

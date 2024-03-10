@@ -16,7 +16,8 @@ from .models.user import User, database_proxy
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # App
-app = Flask(__name__, template_folder=os.path.join(BASE_DIR, "common", "templates"))
+template_folder = os.path.join(BASE_DIR, "common", "templates")
+app = Flask(__name__, template_folder=template_folder)
 app.config.from_object("example.settings")
 
 try:

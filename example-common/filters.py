@@ -38,7 +38,7 @@ def icon_name(name):
 
 
 def slice_by(value, items):
-    return [value[n : n + items] for n in range(0, len(value), items)]
+    return [value[n:n + items] for n in range(0, len(value), items)]
 
 
 def social_backends(backends):

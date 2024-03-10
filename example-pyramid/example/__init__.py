@@ -10,10 +10,11 @@ from .models import Base, DBSession
 
 
 def get_settings(module):
+    not_in_filters = ["__builtins__", "__file__"]
     return {
         key: value
         for key, value in module.__dict__.items()
-        if key not in module.__builtins__ and key not in ["__builtins__", "__file__"]
+        if key not in module.__builtins__ and key not in not_in_filters
     }
 
 

@@ -59,7 +59,6 @@ class AppBaseView(social_app.BaseViewClass):
             web.config[setting_name("AUTHENTICATION_BACKENDS")],
             load_strategy(),
             user=self.get_current_user(),
-            plus_id=web.config.get(setting_name("SOCIAL_AUTH_GOOGLE_PLUS_KEY")),
             **extra
         )
         return render.home(**context)

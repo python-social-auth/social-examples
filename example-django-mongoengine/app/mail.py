@@ -4,8 +4,9 @@ from django.core.urlresolvers import reverse
 
 
 def send_validation(strategy, backend, code, partial_token):
-    url = "{}?verification_code={}&partial_token={}".format(
-        reverse("social:complete", args=(backend.name,)), code.code, partial_token
+    url = "{}?verification_code={}&partial_token={}".format(  # fix: skip
+        reverse("social:complete", args=(backend.name,)),  # fix: skip
+        code.code, partial_token
     )
     url = strategy.request.build_absolute_uri(url)
     send_mail(

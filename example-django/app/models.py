@@ -1,5 +1,6 @@
 from django.db import models
-from social_django.models import USER_MODEL, AbstractUserSocialAuth, DjangoStorage
+from social_django.models import (   # fix: skip
+    USER_MODEL, AbstractUserSocialAuth, DjangoStorage)
 
 
 class CustomUserSocialAuth(AbstractUserSocialAuth):
