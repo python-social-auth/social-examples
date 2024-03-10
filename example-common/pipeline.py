@@ -12,12 +12,14 @@ def require_email(strategy, details, user=None, is_new=False, *args, **kwargs):
         else:
             current_partial = kwargs.get("current_partial")
             return strategy.redirect(  # fix: skip
-                f"/email?partial_token={current_partial.token}")
+                f"/email?partial_token={current_partial.token}"
+            )
 
 
 @partial
 def require_country(  # fix: skip
-        strategy, details, user=None, is_new=False, *args, **kwargs):
+    strategy, details, user=None, is_new=False, *args, **kwargs
+):
     if kwargs.get("ajax"):
         return
     elif is_new and not details.get("country"):
@@ -27,7 +29,8 @@ def require_country(  # fix: skip
         else:
             current_partial = kwargs.get("current_partial")
             return strategy.redirect(  # fix: skip
-                f"/country?partial_token={current_partial.token}")
+                f"/country?partial_token={current_partial.token}"
+            )
 
 
 @partial
@@ -41,4 +44,5 @@ def require_city(strategy, details, user=None, is_new=False, *args, **kwargs):
         else:
             current_partial = kwargs.get("current_partial")
             return strategy.redirect(  # fix: skip
-                f"/city?partial_token={current_partial.token}")
+                f"/city?partial_token={current_partial.token}"
+            )
