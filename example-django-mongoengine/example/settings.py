@@ -273,6 +273,6 @@ USE_TZ = True
 STATIC_URL = "/static/"
 
 try:
-    from example.local_settings import *
+    from example.local_settings import *  # noqa: F401,F403
 except ImportError:
     pass

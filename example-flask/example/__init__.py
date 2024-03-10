@@ -3,7 +3,7 @@ import os
 from common import filters
 from common.utils import common_context
 from common.utils import url_for as common_url_for
-from flask import Flask, g, url_for
+from flask import Flask, g
 from flask_login import LoginManager, current_user
 from social_flask.routes import social_auth
 from social_flask.template_filters import backends
@@ -11,6 +11,7 @@ from social_flask.utils import load_strategy
 from social_flask_sqlalchemy.models import init_social
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
+from example import models
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -34,8 +35,6 @@ login_manager = LoginManager()
 login_manager.login_view = "main"
 login_manager.login_message = ""
 login_manager.init_app(app)
-
-from example import models, routes
 
 
 @login_manager.user_loader

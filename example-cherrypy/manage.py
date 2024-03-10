@@ -3,17 +3,15 @@ import sys
 
 import cherrypy
 from sqlalchemy import create_engine
+from example.app import DATABASE_NAME, run_app
+from example.db import Base
+from social_cherrypy.models import SocialBase
 
 cherrypy.config.update(
     {
         "SOCIAL_AUTH_USER_MODEL": "example.db.user.User",
     }
 )
-
-from example.app import DATABASE_NAME, run_app
-from example.db import Base
-from example.db.user import User
-from social_cherrypy.models import SocialBase
 
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "syncdb":

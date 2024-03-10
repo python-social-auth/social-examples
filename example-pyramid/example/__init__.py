@@ -1,5 +1,3 @@
-import sys
-
 import example.local_settings as app_local_settings
 import example.settings as app_settings
 from common import filters, utils

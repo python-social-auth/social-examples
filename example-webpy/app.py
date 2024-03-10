@@ -9,6 +9,7 @@ from social_webpy.utils import load_strategy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 from web.contrib.template import render_jinja
+from social_webpy import app as social_app
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -24,9 +25,6 @@ for name, value in local_settings.__dict__.items():
         web.config[name] = value
 
 web.config[setting_name("LOGIN_REDIRECT_URL")] = "/done/"
-
-from social_webpy import app as social_app
-from social_webpy.utils import backends, psa
 
 urls = (
     "^/$",
@@ -99,7 +97,7 @@ def load_sqla(handler):
     except web.HTTPError:
         web.ctx.orm.commit()
         raise
-    except:
+    except Exception:
         web.ctx.orm.rollback()
         raise
     finally:

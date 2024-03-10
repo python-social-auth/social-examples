@@ -1,6 +1,5 @@
 from typing import Optional
 
-from example import db_session
 from flask_login import UserMixin
 from sqlalchemy import String
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import click
-from example import app, database
+from example import app
 from flask.cli import FlaskGroup
 
 

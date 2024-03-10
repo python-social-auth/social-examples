@@ -1,12 +1,11 @@
 import os
-import sys
 
 import cherrypy
 from common import filters
 from common.utils import common_context, url_for
 from example import settings
 from jinja2 import Environment, FileSystemLoader
-from social_cherrypy.utils import backends, load_strategy
+from social_cherrypy.utils import load_strategy
 from social_cherrypy.views import CherryPyPSAViews
 from social_core.utils import setting_name
 
@@ -15,7 +14,8 @@ from .db.satool import SATool
 from .db.user import User
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATABASE_NAME = "sqlite:///{dbname}".format(dbname=os.path.join(BASE_DIR, "db.sqlite3"))
+DATABASE_NAME = "sqlite:///{dbname}".format(  # fix: skip
+    dbname=os.path.join(BASE_DIR, "db.sqlite3"))
 
 SAEnginePlugin(cherrypy.engine, DATABASE_NAME).subscribe()
 
@@ -38,9 +38,9 @@ class PSAExample(CherryPyPSAViews):
             cherrypy.config[setting_name("AUTHENTICATION_BACKENDS")],
             load_strategy(),
             user=getattr(cherrypy.request, "user", None),
-            plus_id=cherrypy.config.get(setting_name("SOCIAL_AUTH_GOOGLE_PLUS_KEY")),
         )
-        return cherrypy.tools.jinja2env.get_template("home.html").render(**context)
+        return cherrypy.tools.jinja2env.get_template(  # fix: skip
+            "home.html").render(**context)
 
 
 def load_user():
@@ -56,10 +56,11 @@ def session_commit():
 
 
 def get_settings(module):
+    not_in_items = ["__builtins__", "__file__"]
     return {
         key: value
         for key, value in module.__dict__.items()
-        if key not in module.__builtins__ and key not in ["__builtins__", "__file__"]
+        if key not in module.__builtins__ and key not in not_in_items
     }
 
 
@@ -71,7 +72,8 @@ try:
     SOCIAL_SETTINGS.update(get_settings(local_settings))
 except ImportError:
     raise RuntimeError(
-        "Define a local_settings.py using " "local_settings.py.template as base"
+        "Define a local_settings.py using "  # fix: skip
+        "local_settings.py.template as base"
     )
 
 

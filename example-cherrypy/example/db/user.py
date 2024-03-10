@@ -1,6 +1,6 @@
 from typing import Optional
 
-from sqlalchemy import Boolean, String
+from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column
 
 from . import Base

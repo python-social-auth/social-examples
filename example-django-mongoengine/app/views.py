@@ -1,15 +1,12 @@
 import json
 
-from django.conf import settings
 from django.contrib.auth import login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect
-from social_core.backends.google import GooglePlusAuth
 from social_core.backends.oauth import BaseOAuth1, BaseOAuth2
-from social_core.backends.utils import load_backends
-from social_django.utils import load_strategy, psa
+from social_django.utils import psa
 
 from .decorators import render_to
 

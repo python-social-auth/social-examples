@@ -49,7 +49,7 @@ def social_backends(backends):
         if name not in ["username", "email"]
     ]
     backends.sort(key=lambda b: b[0])
-    return [backends[n : n + 10] for n in range(0, len(backends), 10)]
+    return [backends[n: n + 10] for n in range(0, len(backends), 10)]
 
 
 @register.filter

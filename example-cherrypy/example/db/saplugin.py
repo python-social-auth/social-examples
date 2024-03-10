@@ -29,7 +29,7 @@ class SAEnginePlugin(plugins.SimplePlugin):
     def commit(self):
         try:
             self.session.commit()
-        except:
+        except Exception:
             self.session.rollback()
             raise
         finally:
