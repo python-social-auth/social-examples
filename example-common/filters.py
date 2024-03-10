@@ -38,8 +38,8 @@ def icon_name(name):
 
 
 def slice_by(value, items):
-    return [value[n : n + items]  # fix: skip
-            for n in range(0, len(value), items)]  # noqa: E203
+    return [value[n : n + items]  # fix: skip  # noqa: E203
+            for n in range(0, len(value), items)]
 
 
 def social_backends(backends):
