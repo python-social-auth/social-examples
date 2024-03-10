@@ -2,10 +2,10 @@
 import sys
 
 import cherrypy
-from sqlalchemy import create_engine
 from example.app import DATABASE_NAME, run_app
 from example.db import Base
 from social_cherrypy.models import SocialBase
+from sqlalchemy import create_engine
 
 cherrypy.config.update(
     {

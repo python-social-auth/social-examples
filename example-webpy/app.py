@@ -5,11 +5,11 @@ from common import filters
 from common.utils import common_context, url_for
 from example import local_settings, settings
 from social_core.utils import setting_name
+from social_webpy import app as social_app
 from social_webpy.utils import load_strategy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 from web.contrib.template import render_jinja
-from social_webpy import app as social_app
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 

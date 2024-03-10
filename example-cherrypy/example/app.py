@@ -15,7 +15,8 @@ from .db.user import User
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATABASE_NAME = "sqlite:///{dbname}".format(  # fix: skip
-    dbname=os.path.join(BASE_DIR, "db.sqlite3"))
+    dbname=os.path.join(BASE_DIR, "db.sqlite3")
+)
 
 SAEnginePlugin(cherrypy.engine, DATABASE_NAME).subscribe()
 
@@ -39,8 +40,9 @@ class PSAExample(CherryPyPSAViews):
             load_strategy(),
             user=getattr(cherrypy.request, "user", None),
         )
-        return cherrypy.tools.jinja2env.get_template(  # fix: skip
-            "home.html").render(**context)
+        return cherrypy.tools.jinja2env.get_template("home.html").render(  # fix: skip
+            **context
+        )
 
 
 def load_user():

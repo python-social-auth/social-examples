@@ -3,6 +3,7 @@ import os
 from common import filters
 from common.utils import common_context
 from common.utils import url_for as common_url_for
+from example import models
 from flask import Flask, g
 from flask_login import LoginManager, current_user
 from flask_mongoengine import MongoEngine
@@ -10,7 +11,6 @@ from social_flask.routes import social_auth
 from social_flask.template_filters import backends
 from social_flask.utils import load_strategy
 from social_flask_mongoengine.models import init_social
-from example import models
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
