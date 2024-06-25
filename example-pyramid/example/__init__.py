@@ -1,5 +1,3 @@
-import sys
-
 import example.local_settings as app_local_settings
 import example.settings as app_settings
 from common import filters, utils
@@ -12,17 +10,18 @@ from .models import Base, DBSession
 
 
 def get_settings(module):
+    not_in_filters = ["__builtins__", "__file__"]
     return {
         key: value
         for key, value in module.__dict__.items()
-        if key not in module.__builtins__ and key not in ["__builtins__", "__file__"]
+        if key not in module.__builtins__ and key not in not_in_filters
     }
 
 
 def main(global_config, **settings):
     """This function returns a Pyramid WSGI application."""
     engine = engine_from_config(settings, "sqlalchemy.")
-    DBSession.configure(bind=engine)
+    DBSession.bind = engine
     Base.metadata.bind = engine
     session_factory = SignedCookieSessionFactory("thisisasecret")
     settings["jinja2.globals"] = {"url": utils.url_for}
