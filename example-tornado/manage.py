@@ -9,7 +9,7 @@ from social_tornado.models import init_social
 
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "syncdb":
-        from example.models import User
+        from example.models import User  # noqa: F401
 
         init_social(Base, session, tornado_settings)
         Base.metadata.create_all(engine)

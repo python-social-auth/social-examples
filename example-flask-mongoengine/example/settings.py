@@ -1,5 +1,3 @@
-from os.path import abspath, dirname, join
-
 SECRET_KEY = "random-secret-key"
 SESSION_COOKIE_NAME = "python_social_auth_mongoengine_session"
 DEBUG = True

@@ -1,7 +1,6 @@
 -r ../requirements.txt
 Flask
 Flask-Login
-Flask-Script
 Werkzeug
 Jinja2
 social-auth-app-flask

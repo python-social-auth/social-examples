@@ -21,11 +21,13 @@ def done(request):
         request.registry.settings["SOCIAL_AUTH_AUTHENTICATION_BACKENDS"],
         load_strategy(request),
         user=get_user(request),
-        plus_id=request.registry.settings["SOCIAL_AUTH_GOOGLE_PLUS_KEY"],
     )
 
 
-@view_config(route_name="email_required", renderer="common:templates/home.jinja2")
+@view_config(  # fix: skip
+    route_name="email_required",  # fix: skip
+    renderer="common:templates/home.jinja2",  # fix: skip
+)
 def email_required(request):
     strategy = load_strategy(request)
     partial_token = request.GET.get("partial_token")
