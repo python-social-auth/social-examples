@@ -38,15 +38,22 @@ def icon_name(name):
 
 
 def slice_by(value, items):
-    return [value[n : n + items] for n in range(0, len(value), items)]
+    return [
+        value[n : n + items]  # fix: skip  # noqa: E203
+        for n in range(0, len(value), items)
+    ]
 
 
 def social_backends(backends):
-    return filter_backends(backends, lambda name, backend: name not in LEGACY_NAMES)
+    return filter_backends(  # fix: skip
+        backends, lambda name, backend: name not in LEGACY_NAMES
+    )
 
 
 def legacy_backends(backends):
-    return filter_backends(backends, lambda name, backend: name in LEGACY_NAMES)
+    return filter_backends(  # fix: skip
+        backends, lambda name, backend: name in LEGACY_NAMES
+    )
 
 
 def oauth_backends(backends):

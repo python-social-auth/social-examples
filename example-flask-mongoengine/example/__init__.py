@@ -3,7 +3,8 @@ import os
 from common import filters
 from common.utils import common_context
 from common.utils import url_for as common_url_for
-from flask import Flask, g, url_for
+from example import models
+from flask import Flask, g
 from flask_login import LoginManager, current_user
 from flask_mongoengine import MongoEngine
 from social_flask.routes import social_auth
@@ -14,7 +15,8 @@ from social_flask_mongoengine.models import init_social
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # App
-app = Flask(__name__, template_folder=os.path.join(BASE_DIR, "common", "templates"))
+template_folder = os.path.join(BASE_DIR, "common", "templates")
+app = Flask(__name__, template_folder=template_folder)
 app.config.from_object("example.settings")
 
 try:
@@ -31,8 +33,6 @@ login_manager = LoginManager()
 login_manager.login_view = "main"
 login_manager.login_message = ""
 login_manager.init_app(app)
-
-from example import models, routes
 
 
 @login_manager.user_loader

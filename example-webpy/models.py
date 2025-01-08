@@ -1,17 +1,22 @@
-from sqlalchemy import Boolean, Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
+from typing import Optional
 
-Base = declarative_base()
+from sqlalchemy import String
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+
+
+class Base(DeclarativeBase):
+    pass
 
 
 class User(Base):
     __tablename__ = "users"
-    id = Column(Integer, primary_key=True)
-    username = Column(String(200))
-    password = Column(String(200), default="")
-    name = Column(String(100))
-    email = Column(String(200))
-    active = Column(Boolean, default=True)
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    username: Mapped[str] = mapped_column(String(200))
+    password: Mapped[str] = mapped_column(String(200), default="")
+    name: Mapped[Optional[str]] = mapped_column(String(100))
+    email: Mapped[str] = mapped_column(String(200))
+    active: Mapped[bool] = mapped_column(default=True)
 
     def is_active(self):
         return self.active

@@ -1,12 +1,11 @@
 import os
-import sys
 
 import cherrypy
-import settings
 from common import filters
 from common.utils import common_context, url_for
+from example import settings
 from jinja2 import Environment, FileSystemLoader
-from social_cherrypy.utils import backends, load_strategy
+from social_cherrypy.utils import load_strategy
 from social_cherrypy.views import CherryPyPSAViews
 from social_core.utils import setting_name
 
@@ -15,7 +14,9 @@ from .db.satool import SATool
 from .db.user import User
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATABASE_NAME = "sqlite:///{dbname}".format(dbname=os.path.join(BASE_DIR, "db.sqlite3"))
+DATABASE_NAME = "sqlite:///{dbname}".format(  # fix: skip
+    dbname=os.path.join(BASE_DIR, "db.sqlite3")
+)
 
 SAEnginePlugin(cherrypy.engine, DATABASE_NAME).subscribe()
 
@@ -38,9 +39,9 @@ class PSAExample(CherryPyPSAViews):
             cherrypy.config[setting_name("AUTHENTICATION_BACKENDS")],
             load_strategy(),
             user=getattr(cherrypy.request, "user", None),
-            plus_id=cherrypy.config.get(setting_name("SOCIAL_AUTH_GOOGLE_PLUS_KEY")),
         )
-        return cherrypy.tools.jinja2env.get_template("home.html").render(**context)
+        jinja2env = cherrypy.tools.jinja2env
+        return jinja2env.get_template("home.html").render(**context)
 
 
 def load_user():
@@ -56,22 +57,24 @@ def session_commit():
 
 
 def get_settings(module):
+    not_in_items = ["__builtins__", "__file__"]
     return {
         key: value
         for key, value in module.__dict__.items()
-        if key not in module.__builtins__ and key not in ["__builtins__", "__file__"]
+        if key not in module.__builtins__ and key not in not_in_items
     }
 
 
 SOCIAL_SETTINGS = get_settings(settings)
 
 try:
-    import local_settings
+    from example import local_settings
 
     SOCIAL_SETTINGS.update(get_settings(local_settings))
 except ImportError:
     raise RuntimeError(
-        "Define a local_settings.py using " "local_settings.py.template as base"
+        "Define a local_settings.py using "  # fix: skip
+        "local_settings.py.template as base"
     )
 
 
@@ -82,7 +85,7 @@ def run_app(listen_address="0.0.0.0:8001"):
             "server.socket_port": int(port),
             "server.socket_host": host,
             "tools.sessions.on": True,
-            "tools.sessions.storage_type": "ram",
+            "tools.sessions.storage_class": cherrypy.lib.sessions.RamSession,
             "tools.db.on": True,
             "tools.authenticate.on": True,
             "SOCIAL_AUTH_USER_MODEL": "example.db.user.User",

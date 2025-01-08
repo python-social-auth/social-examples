@@ -28,7 +28,7 @@ def main(argv=sys.argv):
     settings = get_appsettings(config_uri, options=options)
     init_social(get_settings(app_settings), Base, DBSession)
     engine = engine_from_config(settings, "sqlalchemy.")
-    DBSession.configure(bind=engine)
+    DBSession.bind = engine
     Base.metadata.create_all(engine)
 
 

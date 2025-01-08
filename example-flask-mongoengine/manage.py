@@ -1,11 +1,17 @@
 #!/usr/bin/env python
+import click
 from example import app, db
-from flask_script import Manager, Server, Shell
+from flask.cli import FlaskGroup
 
-manager = Manager(app)
-manager.add_command("runserver", Server())
-manager.add_command("shell", Shell(make_context=lambda: {"app": app, "db": db}))
+
+@click.group(cls=FlaskGroup, create_app=lambda: app)
+def cli():
+    """Management script for the Example Flask Social Login application."""
+
+    @app.shell_context_processor
+    def make_shell_context():
+        return dict(db=db)
 
 
 if __name__ == "__main__":
-    manager.run()
+    cli()

@@ -1,4 +1,3 @@
 -r ../requirements.txt
-flask-script
 flask-mongoengine
 social-auth-app-flask-mongoengine

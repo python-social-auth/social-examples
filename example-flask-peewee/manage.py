@@ -1,13 +1,15 @@
 #!/usr/bin/env python
-from example import app, database
-from flask_script import Manager, Server, Shell
-
-manager = Manager(app)
-manager.add_command("runserver", Server())
-manager.add_command("shell", Shell(make_context=lambda: {"app": app}))
+import click
+from example import app
+from flask.cli import FlaskGroup
 
 
-@manager.command
+@click.group(cls=FlaskGroup, create_app=lambda: app)
+def cli():
+    """Management script for the Example Flask Social Login application."""
+
+
+@app.cli.command()
 def syncdb():
     from example.models.user import User
     from social_flask_peewee.models import FlaskStorage
@@ -25,4 +27,4 @@ def syncdb():
 
 
 if __name__ == "__main__":
-    manager.run()
+    cli()
