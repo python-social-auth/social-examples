@@ -1,5 +1,3 @@
-from typing import Optional
-
 from sqlalchemy import String
 from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column
 from zope.sqlalchemy import register
@@ -19,7 +17,7 @@ class User(Base):
     username: Mapped[str] = mapped_column(String(200))
     email: Mapped[str] = mapped_column(String(200))
     password: Mapped[str] = mapped_column(String(200), default="")
-    name: Mapped[Optional[str]] = mapped_column(String(100))
+    name: Mapped[str | None] = mapped_column(String(100))
     active: Mapped[bool] = mapped_column(default=True)
 
     def is_active(self):

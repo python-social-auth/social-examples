@@ -18,8 +18,7 @@ if __name__ == "__main__":
         engine = create_engine(DATABASE_NAME)
         Base.metadata.create_all(engine)
         SocialBase.metadata.create_all(engine)
+    elif len(sys.argv) > 1:
+        run_app(sys.argv[1])
     else:
-        if len(sys.argv) > 1:
-            run_app(sys.argv[1])
-        else:
-            run_app()
+        run_app()

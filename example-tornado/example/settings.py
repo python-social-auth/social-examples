@@ -108,4 +108,4 @@ SOCIAL_AUTH_PIPELINE = (
     "social_core.pipeline.debug.debug",
 )
 
-from example.local_settings import *  # noqa: F401,E402,F403
+from example.local_settings import *  # noqa: E402, F403

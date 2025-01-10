@@ -4,13 +4,14 @@ import tornado.options
 import tornado.web
 from common import filters
 from common.utils import common_context, url_for
-from example import settings
 from jinja2 import Environment, FileSystemLoader
 from social_tornado.routes import SOCIAL_AUTH_ROUTES
 from social_tornado.utils import load_strategy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, Session
 from tornado_jinja2 import Jinja2Loader
+
+from example import settings
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATABASE_NAME = "sqlite:///{dbname}".format(  # fix: skip
@@ -41,7 +42,7 @@ class BaseHandler(tornado.web.RequestHandler):
             load_strategy(self),
             user=user,
             plus_id=getattr(settings, "SOCIAL_AUTH_GOOGLE_PLUS_KEY", None),
-            **extra
+            **extra,
         )
 
         self.render("home.html", **context)
@@ -106,5 +107,5 @@ application = tornado.web.Application(
         (r"/logout/", LogoutHandler),
     ],
     cookie_secret="adb528da-20bb-4386-8eaf-09f041b569e0",
-    **tornado_settings
+    **tornado_settings,
 )

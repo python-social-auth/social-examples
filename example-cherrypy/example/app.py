@@ -3,11 +3,12 @@ import os
 import cherrypy
 from common import filters
 from common.utils import common_context, url_for
-from example import settings
 from jinja2 import Environment, FileSystemLoader
 from social_cherrypy.utils import load_strategy
 from social_cherrypy.views import CherryPyPSAViews
 from social_core.utils import setting_name
+
+from example import settings
 
 from .db.saplugin import SAEnginePlugin
 from .db.satool import SATool

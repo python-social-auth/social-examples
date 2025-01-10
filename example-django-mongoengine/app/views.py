@@ -28,7 +28,6 @@ def home(request):
 @render_to("home.html")
 def done(request):
     """Login complete view, displays user data"""
-    pass
 
 
 @render_to("home.html")

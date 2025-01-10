@@ -3,7 +3,6 @@ import os
 from common import filters
 from common.utils import common_context
 from common.utils import url_for as common_url_for
-from example import models
 from flask import Flask, g
 from flask_login import LoginManager, current_user
 from social_flask.routes import social_auth
@@ -12,6 +11,8 @@ from social_flask.utils import load_strategy
 from social_flask_sqlalchemy.models import init_social
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
+
+from example import models
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

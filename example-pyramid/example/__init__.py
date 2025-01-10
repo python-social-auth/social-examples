@@ -1,10 +1,11 @@
-import example.local_settings as app_local_settings
-import example.settings as app_settings
 from common import filters, utils
 from pyramid.config import Configurator
 from pyramid.session import SignedCookieSessionFactory
 from social_pyramid.models import init_social
 from sqlalchemy import engine_from_config
+
+import example.local_settings as app_local_settings
+import example.settings as app_settings
 
 from .models import Base, DBSession
 

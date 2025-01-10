@@ -24,7 +24,7 @@ def render_to(template):
                         settings.AUTHENTICATION_BACKENDS,
                         load_strategy(),
                         request.user,
-                        **out
+                        **out,
                     ),
                 )
             return out

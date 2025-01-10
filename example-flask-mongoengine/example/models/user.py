@@ -1,7 +1,8 @@
-from example import db
 from flask_login import UserMixin
 from mongoengine import BooleanField, EmailField, StringField
 from social_flask_mongoengine.models import FlaskStorage
+
+from example import db
 
 
 class User(db.Document, UserMixin):

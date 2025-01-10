@@ -59,7 +59,7 @@ class AppBaseView(social_app.BaseViewClass):
             web.config[setting_name("AUTHENTICATION_BACKENDS")],
             load_strategy(),
             user=self.get_current_user(),
-            **extra
+            **extra,
         )
         return render.home(**context)
 

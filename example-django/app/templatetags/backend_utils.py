@@ -51,7 +51,7 @@ def social_backends(backends):
     ]
     backends.sort(key=lambda b: b[0])
     return [
-        backends[n : n + 10]  # fix: skip  # noqa: E203
+        backends[n : n + 10]  # fix: skip
         for n in range(0, len(backends), 10)
     ]
 

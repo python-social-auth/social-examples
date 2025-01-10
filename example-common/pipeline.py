@@ -3,9 +3,9 @@ from social_core.pipeline.partial import partial
 
 @partial
 def require_email(strategy, details, user=None, is_new=False, *args, **kwargs):
-    if kwargs.get("ajax") or user and user.email:
-        return
-    elif is_new and not details.get("email"):
+    if kwargs.get("ajax") or (user and user.email):
+        return None
+    if is_new and not details.get("email"):
         email = strategy.request_data().get("email")
         if email:
             details["email"] = email
@@ -21,8 +21,8 @@ def require_country(  # fix: skip
     strategy, details, user=None, is_new=False, *args, **kwargs
 ):
     if kwargs.get("ajax"):
-        return
-    elif is_new and not details.get("country"):
+        return None
+    if is_new and not details.get("country"):
         country = strategy.request_data().get("country")
         if country:
             details["country"] = country
@@ -36,8 +36,8 @@ def require_country(  # fix: skip
 @partial
 def require_city(strategy, details, user=None, is_new=False, *args, **kwargs):
     if kwargs.get("ajax"):
-        return
-    elif is_new and not details.get("city"):
+        return None
+    if is_new and not details.get("city"):
         city = strategy.request_data().get("city")
         if city:
             details["city"] = city

@@ -5,8 +5,7 @@ from social_core.backends.utils import load_backends
 def is_authenticated(user):
     if callable(user.is_authenticated):
         return user.is_authenticated()
-    else:
-        return user.is_authenticated
+    return user.is_authenticated
 
 
 def associations(user, strategy):
