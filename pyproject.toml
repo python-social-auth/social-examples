@@ -13,10 +13,9 @@ ignore = [
   "T201",  # CONFIG: print is used
   "S603",  # CONFIG: subprocess is being used
   "S607",  # CONFIG: subprocess executes system tools
-  "ANN", # TODO: missing type annotations
-  "N", # TODO: wrong naming conventions
-  "PTH", # TODO: not using pathlib
-  "D" # TODO: missing documentation
-
+  "ANN",  # TODO: missing type annotations
+  "N",  # TODO: wrong naming conventions
+  "PTH",  # TODO: not using pathlib
+  "D"  # TODO: missing documentation
 ]
 select = ["ALL"]
