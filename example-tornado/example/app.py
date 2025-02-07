@@ -32,10 +32,7 @@ class BaseHandler(tornado.web.RequestHandler):
 
         user_id = self.get_secure_cookie("user_id")
 
-        if user_id:
-            user = session.get(User, int(user_id))
-        else:
-            user = None
+        user = session.get(User, int(user_id)) if user_id else None
 
         context = common_context(
             settings.SOCIAL_AUTH_AUTHENTICATION_BACKENDS,
