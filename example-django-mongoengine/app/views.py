@@ -22,12 +22,14 @@ def home(request):
     """Home view, displays login mechanism"""
     if request.user.is_authenticated():
         return redirect("done")
+    return None
 
 
 @login_required
 @render_to("home.html")
 def done(request):
     """Login complete view, displays user data"""
+    return
 
 
 @render_to("home.html")

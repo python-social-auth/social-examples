@@ -14,6 +14,7 @@ def require_email(strategy, details, user=None, is_new=False, *args, **kwargs):
             return strategy.redirect(  # fix: skip
                 f"/email?partial_token={current_partial.token}"
             )
+    return None
 
 
 @partial
@@ -31,6 +32,7 @@ def require_country(  # fix: skip
             return strategy.redirect(  # fix: skip
                 f"/country?partial_token={current_partial.token}"
             )
+    return None
 
 
 @partial
@@ -46,3 +48,4 @@ def require_city(strategy, details, user=None, is_new=False, *args, **kwargs):
             return strategy.redirect(  # fix: skip
                 f"/city?partial_token={current_partial.token}"
             )
+    return None
