@@ -73,7 +73,8 @@ class LogoutHandler(tornado.web.RequestHandler):
 
 
 jinja2env = Environment(
-    loader=FileSystemLoader(os.path.join(BASE_DIR, "common", "templates"))
+    loader=FileSystemLoader(os.path.join(BASE_DIR, "common", "templates")),
+    autoescape=True,
 )
 jinja2env.filters.update(
     {

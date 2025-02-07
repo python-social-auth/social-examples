@@ -96,7 +96,8 @@ def run_app(listen_address="0.0.0.0:8001"):
     )
     cherrypy.config.update(SOCIAL_SETTINGS)
     cherrypy.tools.jinja2env = Environment(
-        loader=FileSystemLoader(os.path.join(BASE_DIR, "common", "templates"))
+        loader=FileSystemLoader(os.path.join(BASE_DIR, "common", "templates")),
+        autoescape=True,
     )
     cherrypy.tools.jinja2env.filters.update(
         {
