@@ -96,8 +96,8 @@ tornado_settings = {
 }
 tornado_settings["template_loader"] = jinja2loader
 application = tornado.web.Application(
-    SOCIAL_AUTH_ROUTES
-    + [
+    [
+        *SOCIAL_AUTH_ROUTES,
         (r"/", MainHandler),
         (r"/done/", DoneHandler),
         (r"/email", EmailRequiredHandler),
