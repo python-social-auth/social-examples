@@ -13,10 +13,7 @@ from example.models import Base, DBSession
 
 def usage(argv):
     cmd = os.path.basename(argv[0])
-    print(
-        "usage: %s <config_uri> [var=value]\n"
-        '(example: "%s development.ini")' % (cmd, cmd)
-    )
+    print(f'usage: {cmd} <config_uri> [var=value]\n(example: "{cmd} development.ini")')
     sys.exit(1)
 
 

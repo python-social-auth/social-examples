@@ -3,7 +3,7 @@ from os.path import abspath, dirname, join
 SECRET_KEY = "random-secret-key"
 SESSION_COOKIE_NAME = "psa_session"
 DEBUG = True
-DATABASE_URI = "%s/db.sqlite3" % dirname(abspath(join(__file__, "..")))
+DATABASE_URI = "{}/db.sqlite3".format(dirname(abspath(join(__file__, ".."))))
 DEBUG_TB_INTERCEPT_REDIRECTS = False
 SESSION_PROTECTION = "strong"
 
