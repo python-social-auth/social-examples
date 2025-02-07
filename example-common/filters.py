@@ -12,8 +12,7 @@ def backend_name(backend):
     name = name.replace("OAuth", " OAuth")
     name = name.replace("OpenId", " OpenId")
     name = name.replace("Sandbox", "")
-    name = NAME_RE.sub(r"\1 Auth", name)
-    return name
+    return NAME_RE.sub(r"\1 Auth", name)
 
 
 def backend_class(backend):

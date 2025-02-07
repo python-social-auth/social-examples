@@ -1,3 +1,4 @@
+import contextlib
 import re
 
 from django import template
@@ -14,8 +15,7 @@ def backend_name(backend):
     name = name.replace("OAuth", " OAuth")
     name = name.replace("OpenId", " OpenId")
     name = name.replace("Sandbox", "")
-    name = name_re.sub(r"\1 Auth", name)
-    return name
+    return name_re.sub(r"\1 Auth", name)
 
 
 @register.filter
@@ -82,10 +82,7 @@ def associated(context, backend):
     user = context.get("user")
     context["association"] = None
     if user and user.is_authenticated():
-        try:
-            context["association"] = user.social_auth.filter(  # fix: skip
-                provider=backend.name
-            )[0]
-        except IndexError:
-            pass
+        associations = user.social_auth.filter(provider=backend.name)
+        with contextlib.suppress(IndexError):
+            context["association"] = associations[0]
     return ""

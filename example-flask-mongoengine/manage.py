@@ -10,7 +10,7 @@ def cli():
 
     @app.shell_context_processor
     def make_shell_context():
-        return dict(db=db)
+        return {"db": db}
 
 
 if __name__ == "__main__":

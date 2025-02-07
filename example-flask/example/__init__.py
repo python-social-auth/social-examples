@@ -1,3 +1,4 @@
+import contextlib
 import os
 
 from common import filters
@@ -21,10 +22,8 @@ template_folder = os.path.join(BASE_DIR, "common", "templates")
 app = Flask(__name__, template_folder=template_folder)
 app.config.from_object("example.settings")
 
-try:
+with contextlib.suppress(ImportError):
     app.config.from_object("example.local_settings")
-except ImportError:
-    pass
 
 # DB
 engine = create_engine(app.config["SQLALCHEMY_DATABASE_URI"])

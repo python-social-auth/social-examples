@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
+import contextlib
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -287,7 +288,5 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-try:
+with contextlib.suppress(ImportError):
     from example.local_settings import *  # noqa: F403
-except ImportError:
-    pass

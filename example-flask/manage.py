@@ -9,7 +9,7 @@ def cli():
 
     @app.shell_context_processor
     def make_shell_context():
-        return dict(db_session=db_session)
+        return {"db_session": db_session}
 
 
 @app.cli.command()

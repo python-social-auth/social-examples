@@ -72,11 +72,11 @@ try:
     from example import local_settings
 
     SOCIAL_SETTINGS.update(get_settings(local_settings))
-except ImportError:
+except ImportError as error:
     raise RuntimeError(
         "Define a local_settings.py using "  # fix: skip
         "local_settings.py.template as base"
-    )
+    ) from error
 
 
 def run_app(listen_address="0.0.0.0:8001"):

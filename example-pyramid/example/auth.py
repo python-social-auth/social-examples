@@ -15,8 +15,7 @@ def login_required(request):
 
 def get_user(request):
     user_id = request.session.get("user_id")
-    user = DBSession.scalar(select(User).where(User.id == user_id)) if user_id else None
-    return user
+    return DBSession.scalar(select(User).where(User.id == user_id)) if user_id else None
 
 
 @subscriber(BeforeRender)

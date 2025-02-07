@@ -15,8 +15,7 @@ def backend_name(backend):
     name = name.replace("OAuth", " OAuth")
     name = name.replace("OpenId", " OpenId")
     name = name.replace("Sandbox", "")
-    name = name_re.sub(r"\1 Auth", name)
-    return name
+    return name_re.sub(r"\1 Auth", name)
 
 
 @register.filter

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
+import contextlib
 import os
 
 import mongoengine
@@ -288,7 +289,5 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-try:
+with contextlib.suppress(ImportError):
     from example.local_settings import *  # noqa: F403
-except ImportError:
-    pass
