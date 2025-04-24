@@ -37,7 +37,6 @@ select = ["ALL"]
 "example-*/setup.py" = ["INP001"]
 "example-django/app/migrations/*.py" = ["RUF012"]
 
-
 [tool.tomlsort]
 ignore_case = true
 sort_inline_arrays = true
