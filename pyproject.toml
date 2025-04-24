@@ -5,29 +5,29 @@ version = "2025.0"
 
 [tool.ruff.lint]
 ignore = [
-  "S106",  # CONFIG: Possible hardcoded password assigned
-  "S105",  # CONFIG: Possible hardcoded password assigned
-  "S104",  # CONFIG: Possible binding to all interfaces
+  "ANN",  # TODO: missing type annotations
+  "ARG001",  # TODO: Unused function argument
+  "ARG005",  # TODO: Unused lambda argument
   "COM",  # CONFIG: No trailing commas
+  "D",  # TODO: missing documentation
   "D203",  # CONFIG: incompatible with D211
   "D212",  # CONFIG: incompatible with D213
   "E501",  # WONTFIX: we accept long strings (rest is formatted by ruff)
-  'ISC001',  # CONFIG: formatter
-  "T201",  # CONFIG: print is used
-  "S603",  # CONFIG: subprocess is being used
-  "S607",  # CONFIG: subprocess executes system tools
   "EM101",  # TODO: Exception must not use a string literal
-  "TRY003",  # TODO: Avoid specifying long messages outside the exception class
-  "ARG001",  # TODO: Unused function argument
-  "ARG005",  # TODO: Unused lambda argument
-  "SLF001",  # TODO: Private member accessed
-  "PLR2004",  # TODO: Magic value used in comparison
   "FBT002",  # TODO: Boolean default positional argument in function definition
   "FBT003",  # TODO: Boolean positional value in function call
-  "ANN",  # TODO: missing type annotations
   "N",  # TODO: wrong naming conventions
+  "PLR2004",  # TODO: Magic value used in comparison
   "PTH",  # TODO: not using pathlib
-  "D"  # TODO: missing documentation
+  "S104",  # CONFIG: Possible binding to all interfaces
+  "S105",  # CONFIG: Possible hardcoded password assigned
+  "S106",  # CONFIG: Possible hardcoded password assigned
+  "S603",  # CONFIG: subprocess is being used
+  "S607",  # CONFIG: subprocess executes system tools
+  "SLF001",  # TODO: Private member accessed
+  "T201",  # CONFIG: print is used
+  "TRY003",  # TODO: Avoid specifying long messages outside the exception class
+  'ISC001'  # CONFIG: formatter
 ]
 select = ["ALL"]
 
