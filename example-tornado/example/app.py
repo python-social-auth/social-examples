@@ -28,7 +28,7 @@ class Base(DeclarativeBase):
 
 class BaseHandler(tornado.web.RequestHandler):
     def render_home(self, **extra):
-        from example.models import User
+        from example.models import User  # noqa: PLC0415
 
         user_id = self.get_secure_cookie("user_id")
 

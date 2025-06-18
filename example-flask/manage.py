@@ -14,8 +14,8 @@ def cli():
 
 @app.cli.command()
 def syncdb():
-    from example.models import user
-    from social_flask_sqlalchemy import models
+    from example.models import user  # noqa: PLC0415
+    from social_flask_sqlalchemy import models  # noqa: PLC0415
 
     user.Base.metadata.create_all(engine)
     models.PSABase.metadata.create_all(engine)
