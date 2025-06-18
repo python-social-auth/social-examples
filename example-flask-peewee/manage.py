@@ -11,8 +11,8 @@ def cli():
 
 @app.cli.command()
 def syncdb():
-    from example.models.user import User
-    from social_flask_peewee.models import FlaskStorage
+    from example.models.user import User  # noqa: PLC0415
+    from social_flask_peewee.models import FlaskStorage  # noqa: PLC0415
 
     models = [
         User,
