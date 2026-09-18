@@ -10,7 +10,7 @@ python-social-auth ecosystem functionality.
 
 ## Documentation
 
-Project documentation is available at https://python-social-auth.readthedocs.io/.
+Project documentation is available at <https://python-social-auth.readthedocs.io/>.
 
 ## Contributing
 

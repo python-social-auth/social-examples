@@ -39,20 +39,19 @@ repos:
   rev: '0.26'
   hooks:
   - id: validate-pyproject
-- repo: https://github.com/executablebooks/mdformat
-  rev: 1.0.0
+- repo: https://github.com/rvben/rumdl-pre-commit
+  rev: v0.2.73
   hooks:
-  - id: mdformat
-    additional_dependencies:
-    - mdformat-gfm==1.0.0
+  - id: rumdl
+  - id: rumdl-fmt
 - repo: https://github.com/codespell-project/codespell
   rev: v2.4.3
   hooks:
   - id: codespell
     additional_dependencies:
     - tomli
-- repo: https://github.com/rhysd/actionlint
-  rev: v1.7.12
+- repo: https://github.com/kjanat/actionlint
+  rev: v1.17
   hooks:
   - id: actionlint
 - repo: https://github.com/zizmorcore/zizmor-pre-commit
