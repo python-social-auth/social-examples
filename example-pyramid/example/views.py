@@ -11,7 +11,6 @@ def home(request):
         request.registry.settings["SOCIAL_AUTH_AUTHENTICATION_BACKENDS"],
         load_strategy(request),
         user=get_user(request),
-        plus_id=request.registry.settings.get("SOCIAL_AUTH_GOOGLE_PLUS_KEY"),
     )
 
 
@@ -36,7 +35,6 @@ def email_required(request):
         request.registry.settings["SOCIAL_AUTH_AUTHENTICATION_BACKENDS"],
         strategy,
         user=get_user(request),
-        plus_id=request.registry.settings["SOCIAL_AUTH_GOOGLE_PLUS_KEY"],
         email_required=True,
         partial_backend_name=partial.backend,
         partial_token=partial_token,

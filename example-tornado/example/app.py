@@ -38,7 +38,6 @@ class BaseHandler(tornado.web.RequestHandler):
             settings.SOCIAL_AUTH_AUTHENTICATION_BACKENDS,
             load_strategy(self),
             user=user,
-            plus_id=getattr(settings, "SOCIAL_AUTH_GOOGLE_PLUS_KEY", None),
             **extra,
         )
 

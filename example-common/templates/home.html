@@ -45,20 +45,13 @@
                   </a>
                 </form>
               {% else %}
-                {% if name == "google-plus" %}
-                  <div class="col-md-2 btn btn-default" id="{{ name }}-button" name="{{ backend|backend_class }}">
-                    <i class="fa fa-{{ name|icon_name }}"></i>
-                    {{ backend|backend_name }}
-                  </div>
-                {% else %}
-                  <a id="{{ name }}-button"
-                     class="col-md-2 btn btn-default"
-                     name="{{ backend|backend_class }}"
-                     href="{{ url("social:begin", backend=name) }}">
-                    <i class="fa fa-{{ name|icon_name }}"></i>
-                    {{ backend|backend_name }}
-                  </a>
-                {% endif %}
+                <a id="{{ name }}-button"
+                   class="col-md-2 btn btn-default"
+                   name="{{ backend|backend_class }}"
+                   href="{{ url("social:begin", backend=name) }}">
+                  <i class="fa fa-{{ name|icon_name }}"></i>
+                  {{ backend|backend_name }}
+                </a>
               {% endif %}
             {% endfor %}
           </div>
@@ -271,30 +264,6 @@
       </div>
     </div>
 
-    <div id="persona-modal" class="modal fade">
-      <form action="{{ url("social:complete", backend="persona") }}" method="post">
-        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title">Mozilla Persona Authentication</h4>
-            </div>
-
-            <div class="modal-body">
-              <p>Login with Mozilla Persona by clicking the <code>Login</code> button below.</p>
-              <input type="hidden" name="assertion" value="" />
-            </div>
-
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Login</button>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-
     {% if partial_backend_name %}
       <div id="email-required-modal" class="modal fade">
         <form action="{{ url("social:complete", backend=partial_backend_name) }}" method="post" role="form">
@@ -402,56 +371,8 @@
       </div>
     </div>
 
-    {% if plus_id %}
-    <script src="https://apis.google.com/js/api:client.js"></script>
-    <script type="text/javascript">
-        gapi.load('auth2', function () {
-          var auth2;
-
-          auth2 = gapi.auth2.init({
-            client_id: "{{ plus_id }}",
-            scope: "{{ plus_scope }}"
-          });
-
-          auth2.then(function () {
-            var button = document.getElementById("google-plus-button");
-            console.log("User is signed-in in Google+ platform?", auth2.isSignedIn.get() ? "Yes" : "No");
-
-            if (button) {
-              auth2.attachClickHandler(button, {}, function (googleUser) {
-                var authResponse = googleUser.getAuthResponse();
-                var $form;
-                var $input;
-
-                $form = $("<form>");
-                $form.attr("action", "{{ url("social:complete", backend="google-plus") }}");
-                $form.attr("method", "post");
-                $input = $("<input>");
-                $input.attr("name", "access_token");
-                $input.attr("value", authResponse.access_token);
-                $form.append($input);
-                $form.append("{{ csrf_token }}");
-                $(document.body).append($form);
-                $form.submit();
-              });
-            } else if (auth2.isSignedIn.get()) {
-              $('#logout').on('click', function (event) {
-                event.preventDefault();
-
-                auth2.signOut().then(function () {
-                  console.log("Logged out from Google+ platform");
-                  document.location = $(event.target).attr('href');
-                });
-              });
-            }
-          });
-        });
-    </script>
-    {% endif %}
-
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <script src="https://login.persona.org/include.js" type="text/javascript"></script>
 
     <script type="text/javascript">
       var modalDialog = function (modalId, modalLinkName, submitHandler) {
@@ -507,21 +428,6 @@
             $result.show();
             setTimeout(function () { window.location = '/'; }, 10000);
           }, 'json')
-        });
-
-        modalDialog('#persona-modal', 'persona', function (event) {
-          var $form;
-          event.preventDefault();
-
-          $form = $(this).closest('form');
-          navigator.id.get(function (assertion) {
-            if (assertion) {
-              $form.find('[name="assertion"]').val(assertion)
-              $form.submit();
-            } else {
-              alert('An error occurred while getting your assertion, try again.');
-            }
-          });
         });
 
         $('.disconnect-form').on('click', 'a.btn', function (event) {

@@ -29,6 +29,9 @@ jobs:
 
     - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
 
+    - name: Validate example backends
+      run: uv run --no-project --with 'social-auth-core[all]' python scripts/check-backends.py
+
     - run: uvx prek run --all-files
       env:
         RUFF_OUTPUT_FORMAT: github

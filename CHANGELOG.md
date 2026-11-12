@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+- Refresh all example backend lists and credential templates for current
+  social-auth-core, replacing obsolete protocols and removing discontinued
+  providers and the legacy Google+ and Persona login UI.
+- Validate example backend imports and duplicate backend names in CI.
 - Split from the monolitic [python-social-auth](https://github.com/omab/python-social-auth)
   codebase
 - Use host 0.0.0.0 for test servers
