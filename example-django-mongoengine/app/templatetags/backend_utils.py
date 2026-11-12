@@ -27,16 +27,19 @@ def backend_class(backend):
 def icon_name(name):
     return {
         "stackoverflow": "stack-overflow",
-        "google-oauth": "google",
         "google-oauth2": "google",
         "google-openidconnect": "google",
-        "yahoo-oauth": "yahoo",
+        "yahoo-oauth2": "yahoo",
         "facebook-app": "facebook",
         "email": "envelope",
         "vimeo": "vimeo-square",
-        "linkedin-oauth2": "linkedin",
+        "linkedin-openidconnect": "linkedin",
         "vk-oauth2": "vk",
-        "live": "windows",
+        "microsoft-graph": "windows",
+        "bitbucket-oauth2": "bitbucket",
+        "dropbox-oauth2": "dropbox",
+        "fedora-oidc": "fedora",
+        "openstreetmap-oauth2": "map-marker",
         "username": "user",
     }.get(name, name)
 

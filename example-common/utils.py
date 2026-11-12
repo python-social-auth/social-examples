@@ -1,4 +1,3 @@
-from social_core.backends.google import GooglePlusAuth
 from social_core.backends.utils import load_backends
 
 
@@ -15,9 +14,7 @@ def associations(user, strategy):
     return list(user_associations)
 
 
-def common_context(  # fix: skip
-    authentication_backends, strategy, user=None, plus_id=None, **extra
-):
+def common_context(authentication_backends, strategy, user=None, **extra):
     """Common view context"""
     context = {
         "user": user,
@@ -30,10 +27,6 @@ def common_context(  # fix: skip
             association.provider: association
             for association in associations(user, strategy)
         }
-
-    if plus_id:
-        context["plus_id"] = plus_id
-        context["plus_scope"] = " ".join(GooglePlusAuth.DEFAULT_SCOPE)
 
     return dict(context, **extra)
 

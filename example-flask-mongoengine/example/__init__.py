@@ -63,7 +63,6 @@ def load_common_context():
         app.config["SOCIAL_AUTH_AUTHENTICATION_BACKENDS"],
         load_strategy(),
         getattr(g, "user", None),
-        app.config.get("SOCIAL_AUTH_GOOGLE_PLUS_KEY"),
     )
 
 

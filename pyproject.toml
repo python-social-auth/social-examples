@@ -37,6 +37,7 @@ select = ["ALL"]
 "example-*/manage.py" = ["INP001"]
 "example-*/setup.py" = ["INP001"]
 "example-django/app/migrations/*.py" = ["RUF012"]
+"scripts/check-backends.py" = ["INP001"]
 
 [tool.rumdl]
 disable = [
